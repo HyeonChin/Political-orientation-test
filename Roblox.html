@@ -1,0 +1,1473 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="ie8" ng-app="robloxApp"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html>
+<!--<![endif]-->
+<head data-machine-id="WEB475">
+    <!-- MachineID: WEB475 -->
+    <title>Roblox</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,requiresActiveX=true" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Roblox Corporation" />
+<meta name="description" content="Roblox is a global platform that brings people together through play." />
+<meta name="keywords" content="free games, online games, building games, virtual worlds, free mmo, gaming cloud, physics engine" />
+<meta name="apple-itunes-app" content="app-id=431946152" />
+
+
+
+
+<script type="application/ld+json">
+    {
+    "@context" : "http://schema.org",
+    "@type" : "Organization",
+    "name" : "Roblox",
+    "url" : "https://www.roblox.com/",
+    "logo": "https://images.rbxcdn.com/c69b74f49e785df33b732273fad9dbe0.png",
+    "sameAs" : [
+    "https://www.facebook.com/roblox/",
+    "https://twitter.com/roblox",
+    "https://www.linkedin.com/company/147977",
+    "https://www.instagram.com/roblox/",
+    "https://www.youtube.com/user/roblox",
+    "https://plus.google.com/+roblox",
+    "https://www.twitch.tv/roblox"
+    ]
+    }
+</script>
+<meta name="locale-data"
+      data-language-code="ko_kr"
+      data-language-name="한국어" /><meta name="device-meta"
+      data-device-type="computer"
+      data-is-in-app="false"
+      data-is-desktop="true"
+      data-is-phone="false"
+      data-is-tablet="false"
+      data-is-console="false"
+      data-is-android-app="false"
+      data-is-ios-app="false"
+      data-is-uwp-app="false"
+      data-is-xbox-app="false"
+      data-is-amazon-app="false"
+      data-is-win32-app="false"
+      data-is-studio="false"
+      data-is-game-client-browser="false"
+      data-is-ios-device="false"
+      data-is-android-device="false"
+      data-is-universal-app="false"
+      data-app-type="unknown"
+/>
+<meta name="environment-meta"
+      data-is-testing-site="false" />
+
+<meta id="roblox-display-names" data-enabled="false"></meta><meta name="page-meta" data-internal-page-name="Login" />
+
+
+<script type="text/javascript">
+    var Roblox = Roblox || {};
+
+    Roblox.BundleVerifierConstants = {
+        isMetricsApiEnabled: true,
+        eventStreamUrl: "//ecsv2.roblox.com/pe?t=diagnostic",
+        deviceType: "Computer",
+        cdnLoggingEnabled: JSON.parse("true")
+    };
+</script>        <script type="text/javascript">
+            var Roblox = Roblox || {};
+
+Roblox.BundleDetector = (function () {
+    var isMetricsApiEnabled = Roblox.BundleVerifierConstants && Roblox.BundleVerifierConstants.isMetricsApiEnabled;
+
+    var loadStates = {
+        loadSuccess: "loadSuccess",
+        loadFailure: "loadFailure",
+        executionFailure: "executionFailure"
+    };
+
+    var bundleContentTypes = {
+        javascript: "javascript",
+        css: "css"
+    };
+
+    var ephemeralCounterNames = {
+        cdnPrefix: "CDNBundleError_",
+        unknown: "CDNBundleError_unknown",
+        cssError: "CssBundleError",
+        jsError: "JavascriptBundleError",
+        jsFileError: "JsFileExecutionError",
+        resourceError: "ResourcePerformance_Error",
+        resourceLoaded: "ResourcePerformance_Loaded"
+    };
+
+    return {
+        jsBundlesLoaded: {},
+        bundlesReported: {},
+
+        counterNames: ephemeralCounterNames,
+        loadStates: loadStates,
+        bundleContentTypes: bundleContentTypes,
+
+        timing: undefined,
+
+        setTiming: function (windowTiming) {
+            this.timing = windowTiming;
+        },
+
+        getLoadTime: function () {
+            if (this.timing && this.timing.domComplete) {
+                return this.getCurrentTime() - this.timing.domComplete;
+            }
+        },
+
+        getCurrentTime: function () {
+            return new Date().getTime();
+        },
+
+        getCdnProviderName: function (bundleUrl, callBack) {
+            if (Roblox.BundleVerifierConstants.cdnLoggingEnabled) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', bundleUrl, true);
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === xhr.HEADERS_RECEIVED) {
+                        try {
+                            var headerValue = xhr.getResponseHeader("rbx-cdn-provider");
+                            if (headerValue) {
+                                callBack(headerValue);
+                            } else {
+                                callBack();
+                            }
+                        } catch (e) {
+                            callBack();
+                        }
+                    }
+                };
+
+                xhr.onerror = function () {
+                    callBack();
+                };
+
+                xhr.send();
+            } else {
+                callBack();
+            }
+        },
+
+        getCdnProviderAndReportMetrics: function (bundleUrl, bundleName, loadState, bundleContentType) {
+            this.getCdnProviderName(bundleUrl, function (cdnProviderName) {
+                Roblox.BundleDetector.reportMetrics(bundleUrl, bundleName, loadState, bundleContentType, cdnProviderName);
+            });
+        },
+
+        reportMetrics: function (bundleUrl, bundleName, loadState, bundleContentType, cdnProviderName) {
+            if (!isMetricsApiEnabled
+                || !bundleUrl
+                || !loadState
+                || !loadStates.hasOwnProperty(loadState)
+                || !bundleContentType
+                || !bundleContentTypes.hasOwnProperty(bundleContentType)) {
+                return;
+            }
+
+            var xhr = new XMLHttpRequest();
+            var metricsApiUrl = (Roblox.EnvironmentUrls && Roblox.EnvironmentUrls.metricsApi) || "https://metrics.roblox.com";
+
+            xhr.open("POST", metricsApiUrl + "/v1/bundle-metrics/report", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.withCredentials = true;
+            xhr.send(JSON.stringify({
+                bundleUrl: bundleUrl,
+                bundleName: bundleName || "",
+                bundleContentType: bundleContentType,
+                loadState: loadState,
+                cdnProviderName: cdnProviderName,
+                loadTimeInMilliseconds: this.getLoadTime() || 0
+            }));
+        },
+
+        logToEphemeralStatistics: function (sequenceName, value) {
+            var deviceType = Roblox.BundleVerifierConstants.deviceType;
+            sequenceName += "_" + deviceType;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/game/report-stats?name=' + sequenceName + "&value=" + value, true);
+            xhr.withCredentials = true;
+            xhr.send();
+        },
+
+        logToEphemeralCounter: function (ephemeralCounterName) {
+            var deviceType = Roblox.BundleVerifierConstants.deviceType;
+            ephemeralCounterName += "_" + deviceType;
+            //log to ephemeral counters - taken from eventTracker.js
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/game/report-event?name=' + ephemeralCounterName, true);
+            xhr.withCredentials = true;
+            xhr.send();
+        },
+
+        logToEventStream: function (failedBundle, ctx, cdnProvider, status) {
+            var esUrl = Roblox.BundleVerifierConstants.eventStreamUrl,
+                currentPageUrl = encodeURIComponent(window.location.href);
+
+            var deviceType = Roblox.BundleVerifierConstants.deviceType;
+            ctx += "_" + deviceType;
+            //try and grab performance data.
+            //Note that this is the performance of the xmlhttprequest rather than the original resource load.
+            var duration = 0;
+            if (window.performance) {
+                var perfTiming = window.performance.getEntriesByName(failedBundle);
+                if (perfTiming.length > 0) {
+                    var data = perfTiming[0];
+                    duration = data.duration || 0;
+                }
+            }
+            //log to event stream (diagnostic)
+            var params = "&evt=webBundleError&url=" + currentPageUrl +
+                "&ctx=" + ctx + "&fileSourceUrl=" + encodeURIComponent(failedBundle) +
+                "&cdnName=" + (cdnProvider || "unknown") +
+                "&statusCode=" + (status || "unknown") +
+                "&loadDuration=" + Math.floor(duration);
+            var img = new Image();
+            img.src = esUrl + params;
+        },
+
+        getCdnInfo: function (failedBundle, ctx, fileType) {
+            if (Roblox.BundleVerifierConstants.cdnLoggingEnabled) {
+                var xhr = new XMLHttpRequest();
+                var counter = this.counterNames;
+                xhr.open('GET', failedBundle, true);
+                var cdnProvider;
+
+                //succesful request
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === xhr.HEADERS_RECEIVED) {
+                        cdnProvider = xhr.getResponseHeader("rbx-cdn-provider");
+                        if (cdnProvider && cdnProvider.length > 0) {
+                            Roblox.BundleDetector.logToEphemeralCounter(counter.cdnPrefix + cdnProvider + "_" + fileType);
+                        }
+                        else {
+                            Roblox.BundleDetector.logToEphemeralCounter(counter.unknown + "_" + fileType);
+                        }
+                    }
+                    else if (xhr.readyState === xhr.DONE) {
+                        // append status to cdn provider so we know its not related to network error.
+                        Roblox.BundleDetector.logToEventStream(failedBundle, ctx, cdnProvider, xhr.status);
+                    }
+                };
+
+                //attach to possible things that can go wrong with the request.
+                //additionally a network error will trigger this callback
+                xhr.onerror = function () {
+                    Roblox.BundleDetector.logToEphemeralCounter(counter.unknown + "_" + fileType);
+                    Roblox.BundleDetector.logToEventStream(failedBundle, ctx, counter.unknown);
+                };
+
+                xhr.send();
+            }
+            else {
+                this.logToEventStream(failedBundle, ctx);
+            }
+        },
+
+        reportResourceError: function (resourceName) {
+            var ephemeralCounterName = this.counterNames.resourceError + "_" + resourceName;
+            this.logToEphemeralCounter(ephemeralCounterName);
+        },
+
+        reportResourceLoaded: function (resourceName) {
+            var loadTimeInMs = this.getLoadTime();
+            if (loadTimeInMs) {
+                var sequenceName = this.counterNames.resourceLoaded + "_" + resourceName;
+                this.logToEphemeralStatistics(sequenceName, loadTimeInMs);
+            }
+        },
+
+        reportBundleError: function (bundleTag) {
+            var ephemeralCounterName, failedBundle, ctx, contentType;
+            if (bundleTag.rel && bundleTag.rel === "stylesheet") {
+                ephemeralCounterName = this.counterNames.cssError;
+                failedBundle = bundleTag.href;
+                ctx = "css";
+                contentType = bundleContentTypes.css;
+            } else {
+                ephemeralCounterName = this.counterNames.jsError;
+                failedBundle = bundleTag.src;
+                ctx = "js";
+                contentType = bundleContentTypes.javascript;
+            }
+
+            //mark that we logged this bundle
+            this.bundlesReported[failedBundle] = true;
+
+            //e.g. javascriptBundleError_Computer
+            this.logToEphemeralCounter(ephemeralCounterName);
+            //this will also log to event stream
+            this.getCdnInfo(failedBundle, ctx, ctx);
+
+            var bundleName;
+            if (bundleTag.dataset) {
+                bundleName = bundleTag.dataset.bundlename;
+            }
+            else {
+                bundleName = bundleTag.getAttribute('data-bundlename');
+            }
+
+            this.getCdnProviderAndReportMetrics(failedBundle, bundleName, loadStates.loadFailure, contentType);
+        },
+
+        bundleDetected: function (bundleName) {
+            this.jsBundlesLoaded[bundleName] = true;
+        },
+
+        verifyBundles: function (document) {
+            var ephemeralCounterName = this.counterNames.jsFileError,
+                eventContext = ephemeralCounterName;
+            //grab all roblox script tags in the page.
+            var scripts = (document && document.scripts) || window.document.scripts;
+            var errorsList = [];
+            var bundleName;
+            var monitor;
+            for (var i = 0; i < scripts.length; i++) {
+                var item = scripts[i];
+
+                if (item.dataset) {
+                    bundleName = item.dataset.bundlename;
+                    monitor = item.dataset.monitor;
+                }
+                else {
+                    bundleName = item.getAttribute('data-bundlename');
+                    monitor = item.getAttribute('data-monitor');
+                }
+
+                if (item.src && monitor && bundleName) {
+                    if (!Roblox.BundleDetector.jsBundlesLoaded.hasOwnProperty(bundleName)) {
+                        errorsList.push(item);
+                    }
+                }
+            }
+            if (errorsList.length > 0) {
+                for (var j = 0; j < errorsList.length; j++) {
+                    var script = errorsList[j];
+                    if (!this.bundlesReported[script.src]) {
+                        //log the counter only if the file is actually corrupted, not just due to failure to load
+                        //e.g. JsFileExecutionError_Computer
+                        this.logToEphemeralCounter(ephemeralCounterName);
+                        this.getCdnInfo(script.src, eventContext, 'js');
+
+                        if (script.dataset) {
+                            bundleName = script.dataset.bundlename;
+                        }
+                        else {
+                            bundleName = script.getAttribute('data-bundlename');
+                        }
+
+                        this.getCdnProviderAndReportMetrics(script.src, bundleName, loadStates.executionFailure, bundleContentTypes.javascript);
+                    }
+                }
+            }
+        }
+    };
+})();
+
+window.addEventListener("load", function (evt) {
+    Roblox.BundleDetector.verifyBundles();
+});
+
+Roblox.BundleDetector.setTiming(window.performance.timing);
+            //# sourceURL=somename.js
+        </script>
+
+<link href="https://images.rbxcdn.com/3b43a5c16ec359053fef735551716fc5.ico" rel="icon" />
+
+
+    <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="StyleGuide" data-bundle-source="Main" href="https://css.rbxcdn.com/e0d4fd774937f217b54c178d68182d5ef0928a164feb48c7245bb06dea07dba4.css" />
+<link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Thumbnails" data-bundle-source="Main" href="https://css.rbxcdn.com/9517d686dc47015c200496d77e2b18146ee37652d18e25ecf9e1ed230310ea13.css" />
+<link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="VerificationUpsell" data-bundle-source="Main" href="https://css.rbxcdn.com/4cfc9413aaac922000f010ba651f264e59a200d6062d41f8196017ade0094116.css" />
+<link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Navigation" data-bundle-source="Main" href="https://css.rbxcdn.com/9436c6cbe91fa165e539bde07534dd30493b8e7343503ad5b6f70b709200558d.css" />
+<link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Footer" data-bundle-source="Main" href="https://css.rbxcdn.com/d5344f38053922e5936f0d7e2d3496ee4f83b46f0bb40d1d2c253b80ac82668e.css" />
+<link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="ConfigureWebApps" data-bundle-source="Main" href="https://css.rbxcdn.com/08def520152a575438e73a81aa9a310c2415c327df7b624a24aa6e794d24dba3.css" />
+
+
+    <link rel="canonical" href="https://www.roblox.com/NewLogin" />
+
+<link onerror='Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)' rel='stylesheet'  href='https://static.rbxcdn.com/css/leanbase___5e469c309d1eeddf42cc9d36a50f82e0_m.css/fetch' />
+
+
+
+<link onerror='Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)' rel='stylesheet'  href='https://static.rbxcdn.com/css/page___b0dafd506d198313adc7eb9bccc23fbb_m.css/fetch' />
+
+
+<link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Captcha" data-bundle-source="Main" href="https://css.rbxcdn.com/24a76e8ea70afb9462fad013faa3d22ff3e832e8327ddd764dafe328918bed90.css" />
+<link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="CrossDeviceLoginDisplayCode" data-bundle-source="Main" href="https://css.rbxcdn.com/5f0aaea202731154b5586a247c44150da5f63e70d4c0e03cdabe06c62e76d10c.css" />
+<link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="AccountRecoveryModal" data-bundle-source="Main" href="https://css.rbxcdn.com/4b5dce375cef78073d2192583d1ecd458f10c308fa99847d649d5ec801bebd61.css" />
+
+    <link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="RobuxIcon" data-bundle-source="Main" href="https://css.rbxcdn.com/2f599b9e9ca20ee3c155684adbf1cdcb7220bab681b55b4505123a0c34e81969.css" />
+
+
+
+
+<link rel="stylesheet" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-bundlename="Login" data-bundle-source="Main" href="https://css.rbxcdn.com/5eb9680d41912dde3d60eaf0d84afe08b3d3e7336862bf0a854b6c2f93cb2d42.css" />
+
+
+
+
+
+
+<script type="text/javascript">
+    var Roblox = Roblox || {};
+    Roblox.EnvironmentUrls = Roblox.EnvironmentUrls || {};
+    Roblox.EnvironmentUrls = {"abtestingApiSite":"https://abtesting.roblox.com","accountInformationApi":"https://accountinformation.roblox.com","accountSettingsApi":"https://accountsettings.roblox.com","adConfigurationApi":"https://adconfiguration.roblox.com","adsApi":"https://ads.roblox.com","apiGatewayUrl":"https://apis.roblox.com","apiGatewayCdnUrl":"https://apis.rbxcdn.com","apiProxyUrl":"https://api.roblox.com","assetDeliveryApi":"https://assetdelivery.roblox.com","authApi":"https://auth.roblox.com","avatarApi":"https://avatar.roblox.com","badgesApi":"https://badges.roblox.com","billingApi":"https://billing.roblox.com","captchaApi":"https://captcha.roblox.com","catalogApi":"https://catalog.roblox.com","chatApi":"https://chat.roblox.com","contactsApi":"https://contacts.roblox.com","contentStoreApi":"https://contentstore.roblox.com","developApi":"https://develop.roblox.com","domain":"roblox.com","economyApi":"https://economy.roblox.com","economycreatorstatsApi":"https://economycreatorstats.roblox.com","engagementPayoutsApi":"https://engagementpayouts.roblox.com","followingsApi":"https://followings.roblox.com","friendsApi":"https://friends.roblox.com","gamesApi":"https://games.roblox.com","gameInternationalizationApi":"https://gameinternationalization.roblox.com","groupsApi":"https://groups.roblox.com","inventoryApi":"https://inventory.roblox.com","itemConfigurationApi":"https://itemconfiguration.roblox.com","localeApi":"https://locale.roblox.com","localizationTablesApi":"https://localizationtables.roblox.com","metricsApi":"https://metrics.roblox.com","midasApi":"https://midas.roblox.com","notificationApi":"https://notifications.roblox.com","premiumFeaturesApi":"https://premiumfeatures.roblox.com","presenceApi":"https://presence.roblox.com","publishApi":"https://publish.roblox.com","screenTimeApi":"https://apis.rcs.roblox.com/screen-time-api","thumbnailsApi":"https://thumbnails.roblox.com","tradesApi":"https://trades.roblox.com","translationRolesApi":"https://translationroles.roblox.com","universalAppConfigurationApi":"https://apis.roblox.com/universal-app-configuration","usersApi":"https://users.roblox.com","voiceApi":"https://voice.roblox.com","websiteUrl":"https://www.roblox.com","privateMessagesApi":"https://privatemessages.roblox.com","shareApi":"https://share.roblox.com","chatModerationApi":"https://chatmoderation.roblox.com","userModerationApi":"https://usermoderation.roblox.com","groupsModerationApi":"https://groupsmoderation.roblox.com","twoStepVerificationApi":"https://twostepverification.roblox.com","restrictedHoursServiceApi":"https://apis.roblox.com/restricted-hours-service"};
+
+    // please keep the list in alphabetical order
+    var additionalUrls = {
+        amazonStoreLink: "https://www.amazon.com/Roblox-Corporation/dp/B00NUF4YOA",
+        amazonWebStoreLink: "https%3a%2f%2fwww.amazon.com%2froblox%3f%26_encoding%3dUTF8%26tag%3dr05d13-20%26linkCode%3dur2%26linkId%3d5562fc29c05b45562a86358c198356eb%26camp%3d1789%26creative%3d9325",
+        appProtocolUrl: "robloxmobile://",
+        appStoreLink: "https://itunes.apple.com/us/app/roblox-mobile/id431946152",
+        googlePlayStoreLink: "https://play.google.com/store/apps/details?id=com.roblox.client&amp;hl=en",
+        iosAppStoreLink: "https://itunes.apple.com/us/app/roblox-mobile/id431946152",
+        windowsStoreLink: "https://www.microsoft.com/en-us/store/games/roblox/9nblgggzm6wm",
+        xboxStoreLink: "https://www.microsoft.com/en-us/p/roblox/bq1tn1t79v9k"
+    }
+
+    for (var urlName in additionalUrls) {
+        Roblox.EnvironmentUrls[urlName] = additionalUrls[urlName];
+    }
+
+</script>
+
+
+
+<script type="text/javascript">
+    var Roblox = Roblox || {};
+    Roblox.GaEventSettings = {
+        gaDFPPreRollEnabled: "false" === "true",
+        gaLaunchAttemptAndLaunchSuccessEnabled: "false" === "true",
+        gaPerformanceEventEnabled: "false" === "true"
+    };
+</script>
+
+
+
+    <script onerror='Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)' data-monitor='true' data-bundlename='headerinit' type='text/javascript' src='https://js.rbxcdn.com/a67ddd9413db88f4124e2c4f25d8cb1f.js'></script>
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="Polyfill" data-bundle-source="Main" src="https://js.rbxcdn.com/772034db167d3f4260047db4a7f2b8a58cf448709327013541e47c8962b6e556.js"></script>
+
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="XsrfProtection" data-bundle-source="Main" src="https://js.rbxcdn.com/4db2f741b7a3ec36d11fec999ce33f708ae85641cabfd27e11e0935928f7d9c4.js"></script>
+
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="HeaderScripts" data-bundle-source="Main" src="https://js.rbxcdn.com/97cb9ac7262155c329a259fce9f940f9bcfa852a6a1ccb44bd8a41c31e84e54b.js"></script>
+
+
+
+<meta name="sentry-meta"
+      data-env-name="production"
+      data-dsn="https://6750adeb1b1348e4a10b13e726d5c10b@sentry.io/1539367"
+      data-sample-rate="0.01" /><script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="Sentry" data-bundle-source="Main" src="https://js.rbxcdn.com/edc66704bd1974195d8c60f4a163441bec82f1bcb11c492e7df07c43f45a4d49.js"></script>
+
+<meta name="roblox-tracer-meta-data"
+      data-access-token="S3EXjCZQQr6OixnmKu+hoa3OSfpvPP5qgU0esiWgwreFUUMBnPhEaoS5yIIrf9bdYlSgW0XKCb1So9Rhtj1eMzt/MJWcyKZ4TwIckHVj"
+      data-service-name="Web"
+      data-tracer-enabled="false"
+      data-api-sites-request-allow-list="friends.roblox.com,chat.roblox.com,thumbnails.roblox.com,games.roblox.com"
+      data-sample-rate="5"
+      data-is-instrument-page-performance-enabled="true"/><script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="RobloxTracer" data-bundle-source="Main" src="https://js.rbxcdn.com/a168257175fe69cdb0762a3b8ca5d0a5fd625f77c027d5e4cef7f90a1602d704.js"></script>
+
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+
+<script type="text/javascript">
+    var Roblox = Roblox || {};
+    Roblox.AdsHelper = Roblox.AdsHelper || {};
+    Roblox.AdsLibrary = Roblox.AdsLibrary || {};
+
+    Roblox.AdsHelper.toggleAdsSlot = function (slotId, GPTRandomSlotIdentifier) {
+        var gutterAdsEnabled = false;
+        if (gutterAdsEnabled) {
+            googletag.display(GPTRandomSlotIdentifier);
+            return;
+        }
+
+        if (typeof slotId !== 'undefined' && slotId && slotId.length > 0) {
+            var slotElm = $("#"+slotId);
+            if (slotElm.is(":visible")) {
+                googletag.display(GPTRandomSlotIdentifier);
+            }else {
+                var adParam = Roblox.AdsLibrary.adsParameters[slotId];
+                if (adParam) {
+                    adParam.template = slotElm.html();
+                    slotElm.empty();
+                }
+            }
+        }
+    }
+</script>
+
+
+
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<script>
+    //Set if it browser's do not track flag is enabled
+    var Roblox = Roblox || {};
+    (function() {
+        var dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+        if (typeof window.external !== "undefined" &&
+            typeof window.external.msTrackingProtectionEnabled !== "undefined") {
+            dnt = dnt || window.external.msTrackingProtectionEnabled();
+        }
+        Roblox.browserDoNotTrack = dnt == "1" || dnt == "yes" || dnt === true;
+    })();
+</script>
+
+
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+
+                window.GoogleAnalyticsDisableRoblox2 = true;
+        _gaq.push(['b._setAccount', 'UA-486632-1']);
+            _gaq.push(['b._setSampleRate', '10']);
+        _gaq.push(['b._setCampSourceKey', 'rbx_source']);
+        _gaq.push(['b._setCampMediumKey', 'rbx_medium']);
+        _gaq.push(['b._setCampContentKey', 'rbx_campaign']);
+
+            _gaq.push(['b._setDomainName', 'roblox.com']);
+
+            _gaq.push(['b._setCustomVar', 1, 'Visitor', 'Anonymous', 2]);
+                _gaq.push(['b._setPageGroup', 1, 'Login']);
+            _gaq.push(['b._trackPageview']);
+
+        _gaq.push(['c._setAccount', 'UA-26810151-2']);
+            _gaq.push(['c._setSampleRate', '1']);
+                    _gaq.push(['c._setDomainName', 'roblox.com']);
+                    _gaq.push(['c._setPageGroup', 1, 'Login']);
+             </script>
+        <script async src='https://www.googletagmanager.com/gtag/js?id=AW-1065449093'></script>
+        <script type="text/javascript">
+            var accountCode = "AW-1065449093";
+            var signupConversionEventKey = "wmuJCO3CZBCF7YX8Aw";
+            var webPurchaseConversionEventKey = "XDQ_CJme6s0BEIXthfwD";
+            window.dataLayer = window.dataLayer || [];
+
+            function gtag() { dataLayer.push(arguments); }
+            gtag.conversionEvents = {
+                signupConversionEvent: accountCode + '/' + signupConversionEventKey,
+                webPurchaseConversionEvent: accountCode + '/' + webPurchaseConversionEventKey
+            }
+            gtag ('set', 'allow_ad_personalization_signals', false) ;
+            gtag('js', new Date());
+            gtag('config', accountCode);
+        </script>
+
+
+            <script type="text/javascript">
+            if (Roblox && Roblox.EventStream) {
+                Roblox.EventStream.Init("//ecsv2.roblox.com/www/e.png",
+                    "//ecsv2.roblox.com/www/e.png",
+                    "//ecsv2.roblox.com/pe?t=studio",
+                    "//ecsv2.roblox.com/pe?t=diagnostic");
+            }
+        </script>
+
+
+
+<script type="text/javascript">
+    if (Roblox && Roblox.PageHeartbeatEvent) {
+        Roblox.PageHeartbeatEvent.Init([2,8,20,60]);
+    }
+</script>
+    <script type="text/javascript">
+if (typeof(Roblox) === "undefined") { Roblox = {}; }
+Roblox.Endpoints = Roblox.Endpoints || {};
+Roblox.Endpoints.Urls = Roblox.Endpoints.Urls || {};
+Roblox.Endpoints.Urls['/asset/'] = 'https://assetgame.roblox.com/asset/';
+Roblox.Endpoints.Urls['/client-status/set'] = 'https://www.roblox.com/client-status/set';
+Roblox.Endpoints.Urls['/client-status'] = 'https://www.roblox.com/client-status';
+Roblox.Endpoints.Urls['/game/'] = 'https://assetgame.roblox.com/game/';
+Roblox.Endpoints.Urls['/game/edit.ashx'] = 'https://assetgame.roblox.com/game/edit.ashx';
+Roblox.Endpoints.Urls['/game/placelauncher.ashx'] = 'https://assetgame.roblox.com/game/placelauncher.ashx';
+Roblox.Endpoints.Urls['/game/preloader'] = 'https://assetgame.roblox.com/game/preloader';
+Roblox.Endpoints.Urls['/game/report-stats'] = 'https://assetgame.roblox.com/game/report-stats';
+Roblox.Endpoints.Urls['/game/report-event'] = 'https://assetgame.roblox.com/game/report-event';
+Roblox.Endpoints.Urls['/game/updateprerollcount'] = 'https://assetgame.roblox.com/game/updateprerollcount';
+Roblox.Endpoints.Urls['/login/default.aspx'] = 'https://www.roblox.com/login/default.aspx';
+Roblox.Endpoints.Urls['/my/avatar'] = 'https://www.roblox.com/my/avatar';
+Roblox.Endpoints.Urls['/my/money.aspx'] = 'https://www.roblox.com/my/money.aspx';
+Roblox.Endpoints.Urls['/navigation/userdata'] = 'https://www.roblox.com/navigation/userdata';
+Roblox.Endpoints.Urls['/chat/chat'] = 'https://www.roblox.com/chat/chat';
+Roblox.Endpoints.Urls['/chat/data'] = 'https://www.roblox.com/chat/data';
+Roblox.Endpoints.Urls['/friends/list'] = 'https://www.roblox.com/friends/list';
+Roblox.Endpoints.Urls['/navigation/getcount'] = 'https://www.roblox.com/navigation/getCount';
+Roblox.Endpoints.Urls['/regex/email'] = 'https://www.roblox.com/regex/email';
+Roblox.Endpoints.Urls['/catalog/browse.aspx'] = 'https://www.roblox.com/catalog/browse.aspx';
+Roblox.Endpoints.Urls['/catalog/html'] = 'https://search.roblox.com/catalog/html';
+Roblox.Endpoints.Urls['/catalog/json'] = 'https://search.roblox.com/catalog/json';
+Roblox.Endpoints.Urls['/catalog/contents'] = 'https://search.roblox.com/catalog/contents';
+Roblox.Endpoints.Urls['/catalog/lists.aspx'] = 'https://search.roblox.com/catalog/lists.aspx';
+Roblox.Endpoints.Urls['/catalog/items'] = 'https://search.roblox.com/catalog/items';
+Roblox.Endpoints.Urls['/asset-hash-thumbnail/image'] = 'https://assetgame.roblox.com/asset-hash-thumbnail/image';
+Roblox.Endpoints.Urls['/asset-hash-thumbnail/json'] = 'https://assetgame.roblox.com/asset-hash-thumbnail/json';
+Roblox.Endpoints.Urls['/asset-thumbnail-3d/json'] = 'https://assetgame.roblox.com/asset-thumbnail-3d/json';
+Roblox.Endpoints.Urls['/asset-thumbnail/image'] = 'https://assetgame.roblox.com/asset-thumbnail/image';
+Roblox.Endpoints.Urls['/asset-thumbnail/json'] = 'https://assetgame.roblox.com/asset-thumbnail/json';
+Roblox.Endpoints.Urls['/asset-thumbnail/url'] = 'https://assetgame.roblox.com/asset-thumbnail/url';
+Roblox.Endpoints.Urls['/asset/request-thumbnail-fix'] = 'https://assetgame.roblox.com/asset/request-thumbnail-fix';
+Roblox.Endpoints.Urls['/avatar-thumbnail-3d/json'] = 'https://www.roblox.com/avatar-thumbnail-3d/json';
+Roblox.Endpoints.Urls['/avatar-thumbnail/image'] = 'https://www.roblox.com/avatar-thumbnail/image';
+Roblox.Endpoints.Urls['/avatar-thumbnail/json'] = 'https://www.roblox.com/avatar-thumbnail/json';
+Roblox.Endpoints.Urls['/avatar-thumbnails'] = 'https://www.roblox.com/avatar-thumbnails';
+Roblox.Endpoints.Urls['/avatar/request-thumbnail-fix'] = 'https://www.roblox.com/avatar/request-thumbnail-fix';
+Roblox.Endpoints.Urls['/bust-thumbnail/json'] = 'https://www.roblox.com/bust-thumbnail/json';
+Roblox.Endpoints.Urls['/headshot-thumbnail/json'] = 'https://www.roblox.com/headshot-thumbnail/json';
+Roblox.Endpoints.Urls['/item-thumbnails'] = 'https://www.roblox.com/item-thumbnails';
+Roblox.Endpoints.Urls['/outfit-thumbnail/json'] = 'https://www.roblox.com/outfit-thumbnail/json';
+Roblox.Endpoints.Urls['/place-thumbnails'] = 'https://www.roblox.com/place-thumbnails';
+Roblox.Endpoints.Urls['/thumbnail/asset/'] = 'https://www.roblox.com/thumbnail/asset/';
+Roblox.Endpoints.Urls['/thumbnail/avatar-headshot'] = 'https://www.roblox.com/thumbnail/avatar-headshot';
+Roblox.Endpoints.Urls['/thumbnail/avatar-headshots'] = 'https://www.roblox.com/thumbnail/avatar-headshots';
+Roblox.Endpoints.Urls['/thumbnail/user-avatar'] = 'https://www.roblox.com/thumbnail/user-avatar';
+Roblox.Endpoints.Urls['/thumbnail/resolve-hash'] = 'https://www.roblox.com/thumbnail/resolve-hash';
+Roblox.Endpoints.Urls['/thumbnail/place'] = 'https://www.roblox.com/thumbnail/place';
+Roblox.Endpoints.Urls['/thumbnail/get-asset-media'] = 'https://www.roblox.com/thumbnail/get-asset-media';
+Roblox.Endpoints.Urls['/thumbnail/remove-asset-media'] = 'https://www.roblox.com/thumbnail/remove-asset-media';
+Roblox.Endpoints.Urls['/thumbnail/set-asset-media-sort-order'] = 'https://www.roblox.com/thumbnail/set-asset-media-sort-order';
+Roblox.Endpoints.Urls['/thumbnail/place-thumbnails'] = 'https://www.roblox.com/thumbnail/place-thumbnails';
+Roblox.Endpoints.Urls['/thumbnail/place-thumbnails-partial'] = 'https://www.roblox.com/thumbnail/place-thumbnails-partial';
+Roblox.Endpoints.Urls['/thumbnail_holder/g'] = 'https://www.roblox.com/thumbnail_holder/g';
+Roblox.Endpoints.Urls['/users/{id}/profile'] = 'https://www.roblox.com/users/{id}/profile';
+Roblox.Endpoints.Urls['/service-workers/push-notifications'] = 'https://www.roblox.com/service-workers/push-notifications';
+Roblox.Endpoints.Urls['/notification-stream/notification-stream-data'] = 'https://www.roblox.com/notification-stream/notification-stream-data';
+Roblox.Endpoints.Urls['/api/friends/acceptfriendrequest'] = 'https://www.roblox.com/api/friends/acceptfriendrequest';
+Roblox.Endpoints.Urls['/api/friends/declinefriendrequest'] = 'https://www.roblox.com/api/friends/declinefriendrequest';
+Roblox.Endpoints.Urls['/authentication/is-logged-in'] = 'https://www.roblox.com/authentication/is-logged-in';
+Roblox.Endpoints.addCrossDomainOptionsToAllRequests = true;
+</script>
+
+    <script type="text/javascript">
+if (typeof(Roblox) === "undefined") { Roblox = {}; }
+Roblox.Endpoints = Roblox.Endpoints || {};
+Roblox.Endpoints.Urls = Roblox.Endpoints.Urls || {};
+</script>
+
+    <script>
+    Roblox = Roblox || {};
+    Roblox.AbuseReportPVMeta = {
+        desktopEnabled: false,
+        phoneEnabled: false,
+        inAppEnabled: false
+    };
+</script>
+
+
+<meta name="thumbnail-meta-data"
+      data-is-webapp-cache-enabled="False"
+      data-webapp-cache-expirations-timespan="00:01:00"
+      data-request-min-cooldown="1000"
+      data-request-max-cooldown="30000"
+      data-request-max-retry-attempts="5"
+      data-request-batch-size="100"
+      data-thumbnail-metrics-sample-size="20"
+      data-concurrent-thumbnail-request-count="4"/>
+
+
+</head>
+<body id="rbx-body"
+      class="rbx-body   light-theme gotham-font"
+      data-performance-relative-value="0.005"
+      data-internal-page-name="Login"
+      data-send-event-percentage="0">
+
+    <meta name="csrf-token" data-token="IiKUn8tr9YJg" />
+
+    <div id="roblox-linkify" data-enabled="true" data-regex="(https?\:\/\/)?(?:www\.)?([a-z0-9-]{2,}\.)*(((m|de|www|web|api|blog|wiki|corp|polls|bloxcon|developer|devforum|forum|status)\.roblox\.com|robloxlabs\.com)|(www\.shoproblox\.com)|(roblox\.status\.io)|(rblx\.co)|help\.roblox\.com(?![A-Za-z0-9\/.]*\/attachments\/))(?!\/[A-Za-z0-9-+&amp;@#\/=~_|!:,.;]*%)((\/[A-Za-z0-9-+&amp;@#\/%?=~_|!:,.;]*)|(?=\s|\b))" data-regex-flags="gm" data-as-http-regex="(([^.]help|polls)\.roblox\.com)"></div>
+
+<div id="image-retry-data"
+     data-image-retry-max-times="30"
+     data-image-retry-timer="500"
+     data-ga-logging-percent="10">
+</div>
+<div id="http-retry-data"
+     data-http-retry-max-timeout="0"
+     data-http-retry-base-timeout="0"
+     data-http-retry-max-times="1">
+</div>
+
+
+
+
+<div id="fb-root"></div>
+
+<div id="wrap" class="wrap no-gutter-ads logged-out"
+     data-gutter-ads-enabled="false">
+
+
+<div id="navigation-container" class="light-theme gotham-font" data-number-of-autocomplete-suggestions="0">
+    <div id="header" class="navbar-fixed-top rbx-header" role="navigation">
+  <div class="container-fluid">
+    <div class="rbx-navbar-header">
+      <div id="header-menu-icon" role="button" tabindex="0" class="rbx-nav-collapse">
+        <span class="icon-nav-menu"></span>
+      </div>
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/home"
+          ><span class="icon-logo"></span><span class="icon-logo-r"></span
+        ></a>
+      </div>
+    </div>
+    <ul class="nav rbx-navbar hidden-xs hidden-sm col-md-5 col-lg-4">
+      <li class="cursor-pointer">
+        <a class="font-header-2 nav-menu-title text-header" href="/games">둘러보기</a>
+      </li>
+      <li class="cursor-pointer">
+        <a class="font-header-2 nav-menu-title text-header" href="/catalog">아바타 상점</a>
+      </li>
+      <li class="cursor-pointer">
+        <a class="font-header-2 nav-menu-title text-header" href="/develop">만들기</a>
+      </li>
+      <li class="cursor-pointer">
+        <a class="font-header-2 nav-menu-title text-header" href="/robux?ctx-nav"
+          >Robux</a
+        >
+      </li>
+    </ul>
+
+    <ul class="nav rbx-navbar hidden-md hidden-lg col-xs-12">
+      <li class="cursor-pointer">
+        <a class="font-header-2 nav-menu-title text-header" href="/games">둘러보기</a>
+      </li>
+      <li class="cursor-pointer">
+        <a class="font-header-2 nav-menu-title text-header" href="/catalog">아바타 상점</a>
+      </li>
+      <li class="cursor-pointer">
+        <a class="font-header-2 nav-menu-title text-header" href="/develop">만들기</a>
+      </li>
+      <li class="cursor-pointer">
+        <a class="font-header-2 nav-menu-title text-header" href="/robux?ctx=nav"
+          >Robux</a
+        >
+      </li>
+    </ul>
+    <div id="right-navigation-header"></div>
+  </div>
+</div>
+<div id="left-navigation-container"></div>
+<div id="verificationUpsell-container">
+  <div verificationUpsell-container></div>
+</div>
+<div id="accountRecoveryModal-container">
+  <div accountRecoveryModal-container></div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+    var Roblox = Roblox || {};
+    (function () {
+        if (Roblox && Roblox.Performance) {
+            Roblox.Performance.setPerformanceMark("navigation_end");
+        }
+    })();
+</script>
+
+    <div class="container-main
+
+
+
+
+
+                "
+         id="container-main">
+            <script type="text/javascript">
+                if (top.location != self.location) {
+                    top.location = self.location.href;
+                }
+            </script>
+
+    <div class="alert-container">
+            <noscript><div><div class="alert-info" role="alert">Please enable Javascript to use all the features on this site.</div></div></noscript>
+
+
+
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="CrownPeakCookieBanner" data-bundle-source="Main" src="https://js.rbxcdn.com/5188106329cab2c7a265bd5d8182124dd5a48379bfd31965c98d1fd73418dfc0.js"></script>
+
+        </div>
+
+
+        <div class="content">
+
+                                    <script src="https://roblox-api.arkoselabs.com/fc/api/?onload=reportFunCaptchaLoaded" async onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportResourceError('funcaptcha')"></script>
+<script type="text/javascript">
+    var Roblox = Roblox || {};
+    $(function () {
+        var funCaptcha = Roblox.FunCaptcha;
+        if (funCaptcha) {
+            var captchaTypes = [{"Type":"Login","PublicKey":"9F35E182-C93C-EBCC-A31D-CF8ED317B996","ApiUrl":"https://captcha.roblox.com/v1/funcaptcha/login/web"}];
+            funCaptcha.addCaptchaTypes(captchaTypes, true);
+            funCaptcha.setMaxRetriesOnTokenValidationFailure(0);
+            funCaptcha.setPerAppTypeLoggingEnabled(false);
+            funCaptcha.setRetryIntervalRange(500, 1500);
+        }
+    });
+
+    // Necessary because of how FunCaptcha js executes callback
+    // i.e. window["{function name}"]
+    function reportFunCaptchaLoaded()
+    {
+        if (Roblox.BundleDetector)
+        {
+            Roblox.BundleDetector.reportResourceLoaded("funcaptcha");
+        }
+    }
+</script>
+  <p>귀하의 계정은 2021-5-24일 규정 위반으로 해지되었습니다.</p>
+  <br>
+  <p>You have entered what we like to call the Imagination Platform ("Platform"), the ultimate virtual universe where imagination rules. The Platform is part of a service offered by Roblox that allows users to develop games, connect with other users to play games, and use content created by you and other users (the "Service").
+
+Together with you and the rest of our community, we want to create the future of entertainment. To accomplish this, we set out below the terms and conditions ("Terms") that you, a user, and Roblox Corporation ("we," "our," or "us") must follow, and are a legally binding agreement between you and us.
+
+Please note that different arrangements apply to users located in the People’s Republic of China (other than in Hong Kong or Macau Special Administrative Regions or Taiwan, "PRC"). If you are a user in the PRC, then Appendix A will apply to you. Please also note that the supplemental provisions apply to users in Japan. If you are a user in Japan, then Appendix B will apply to you.
+
+In particular, we want to point out that by accepting these Terms, you and we are agreeing to arbitrate any dispute between us, and you are giving up your right to go to court either individually (except for matters that may be taken to small claims court) or as part of a class action, except as otherwise provided by the European General Data Protection Regulation. See the Dispute Resolution and Arbitration section below for details.
+
+We also want to make sure that you know that by accepting these Terms and for purposes of facilitating the Service, you are agreeing to grant us a non-exclusive license to use, online and offline, whatever you create or in the past have created while using the Service. This is covered in the User Generated Creations ("UGC") section below. We hope you have fun!
+
+Acceptance of Terms
+Legal Agreement. By using or visiting any of our websites, any of our products, software, applications, content, test environments, data feeds, forums, the Platform and the Service, our RDC (Roblox Developer Conference) event or any other event that we hold and you attend, you signify your agreement to these Terms and the following, all of which are incorporated by reference and shall be included within the definition of Terms: (a) the , (b) the , and (c) . If you do not agree to all these policies, rules and the Terms, you may not use the Service. In order to agree to these Terms, you need to (1) be 18 or older, or have your parent or guardian’s consent to agree to the Terms, and (2) have the power to enter a binding contract with us and not be barred from doing so under any applicable laws.
+Changes to Terms. We reserve the right to update or modify the Terms at any time without prior notice, and such changes will be effective immediately upon being posted through the Service; however, material changes to these Terms will be effective upon the earlier of (i) your first use of the Service with actual notice of such change, or (ii) 30 days from the posting of such change. Your use of the Service following any such change constitutes your agreement to be bound by the modified Terms. These Terms will identify the date of last update. Disputes arising under these Terms will be resolved in accordance with the version of the Terms in place at the time the Dispute arose. "Disputes" means any dispute, action, controversy or claim arising out of or relating to any aspect of these Terms, whether based in contract, tort, statute, fraud, misrepresentation, or any other legal or equitable basis, and regardless of whether a claim arises during or after the termination of these Terms. We encourage you to review these Terms frequently to stay informed of the latest modifications.
+Additional Policies. Your use of the Service is subject to all additional terms, policies, rules, or guidelines applicable to the Service or certain features of the Service that we may post on or link to the Service, and all such additional documents are incorporated by this reference into, and made a part of, these Terms.
+The Service
+Use. Some of the things you can do through the Service are listed directly below. (What you can actually do in the list below will depend on your age, the type of account you sign up to, whether you create UGC and allow the use by others of that UGC, and other factors.) These Terms apply to all users of the Service no matter what you do. "UGC" means the following that you control, have the ability to license, have ownership of, will Provide (as defined below), or have Provided: (a) Content Services (as defined below) and (b) any modifications, changes, or derivative works by you or that you otherwise own or control of any of those types of data or works that are on, in, or used with the Service. "Provide" or "Publish" means to create, modify, or generate through the Service, or upload, post, publish, or otherwise provide to, for, or through us, someone, or something on behalf of us or the Service. "Content Services" means all types of content, including games (and all characters, assets, names and other items in the games), avatars and other characters, digital clothing and other digital assets for avatars and other characters, models (2D, 3D or otherwise), artwork, reviews, text, software, scripts, graphics, photos, images, sounds, music, videos, audiovisual combinations, interactive features, names, usernames, logos, Dev Services (as defined below), and other materials, works, items or content (standalone or in combination).
+Create/Develop/Modify/Contribute. Create, develop, modify and contribute Content Services, which may be available to some or all of the users of the Service. You may have heard people describe Roblox as the place where "games and experiences are created by the players for the players." We are known for that because the Service is a social platform, which hosts games and other content created by users to be played and used by other users. The Service includes tools and interfaces that users can use to create, play, interact and socialize. Users who create Dev Services (as defined below) and Publish the Dev Services, we call "Devs". Other users on the Service can interact, use and in some cases acquire the Dev Services. "Dev Services" mean the following Content Services created by Devs: (a) games/experiences ("Dev Game Services"), (b) anything that is made available (through the Service) for consideration to other users in and for Dev Game Services, such as game passes or digital content, items or abilities for use in or for Dev Game Services ("Dev Game Item Services"), and (c) digital items for avatars ("Dev Avatar Item Services"). Keep in mind that Devs are users like you. So, we welcome you to become a Dev. Also keep in mind that whether you are a Dev or other type of user, you are governed by these Terms. Also, we reserve the right, but shall have no obligation, to pre-screen, refuse to accept, post, display or transmit your Content Services through the Service in whole or in part at any time for any reason or no reason, with or without notice and with no liability.
+Play/Interact. Play, interact, see, view and use (and in certain cases, manipulate and change) certain portions of the UGC on the Platform.
+Imagine/Socialize. Imagine, socialize, chat, play, create, interact and relate with others in many ways.
+Participate in the Developer Exchange. We, in our sole discretion, may allow eligible users of the Service to participate in the Developer Exchange ("DevEx") (which we explain below).
+Changes or Discontinuance of the Service. We reserve the right to modify or discontinue the Service at any time (including by limiting or discontinuing certain features of the Service) without notice to you. We will have no liability whatsoever on account of any change to the Service.
+Third-Party Services. We may provide tools through the Service that enable you to export information to third-party services, including through features that allow you to link your account with an account on a third-party service, such as Twitter or Facebook, or through our implementation of third-party buttons (such as "like" or "share" buttons). Third-party services are not under our control, and we are not responsible for any third-party service’s use of your exported information. The Service may also contain links to third-party websites. Linked websites are not under our control, and we are not responsible for their content. If you click on a linked website, we are not responsible for such website’s use of your data. You agree that your use of the Service may incur third-party fees, such as fees charged by your carrier for data usage, and may be subject to third-party terms, such as your carrier’s terms of service, and you agree to pay all such fees and abide by all such terms. By using the Service, you expressly relieve us from any and all liability arising from your use of any third-party website or third-party services.
+Accounts
+Your Account. To access some of the Service features on the Platform, you will need to create an account ("Account"). When you register for an Account or update the information, you agree to provide us an accurate age and information that you will keep up-to-date at all times (providing inaccurate information is a violation of these Terms). You may never allow anyone else to use your Account (except your parents or legal guardian). If you have reason to believe that your Account is no longer secure, then you must immediately notify us at . If anyone asks for your password or personal information (such as your name, address or phone number), please use the Report Abuse feature to immediately report the user and situation. You agree that we may take steps to verify the accuracy of information you provide, including contact information for a parent or guardian.
+Suspension/Termination. If you violate any provision of these Terms, your permission to use the Service will terminate automatically. In addition, we may, in our sole discretion, (a) suspend or terminate your Account and/or your access to the Service, or (b) remove any of your Content Services, at any time, without notice for any reason. We will have no liability whatsoever as a result of any suspension or termination of your access to or use of the Service. If you are under 18, your parent/guardian may request the termination of your Account by contacting customer service at .
+Robux and Developer Exchange
+Robux
+License to Use. We, in our sole discretion, may offer eligible users of the Service the ability to acquire a limited license to use our virtual currency ("Robux"). If we offer you the ability to acquire a limited license to use Robux, we hereby grant you a non-exclusive, revocable, personal, limited, non-transferable (except as specifically set out in Section 4A(2)(e) below) right and license to use Robux only for your personal, entertainment use exclusively in connection with the Service as permitted by us, subject to these Terms.
+Ways to Acquire Robux. Eligible users of the Service may acquire a limited license to use Robux: (a) by acquiring Robux from us; (b) by acquiring certain memberships from us that provide a specified amount of Robux; (c) by referring other users to the Service that acquire Robux or a membership; (d) by creating certain UGC for the Service; (e) by transferring certain Content Services to other users in exchange for Robux; or (f) through such other methods as we may offer from time to time. We will credit your Account for any Robux acquired by you. Your license to use Robux will terminate upon termination of these Terms or your Account and as otherwise provided herein, except as otherwise required by applicable law. Users are prohibited from purchasing more than $10,000 in eGift Cards or similar prepaid access products on or through the Roblox Platform in any one day.
+Robux Not Redeemable or Exchangeable. Robux do not: (a) have an equivalent value in real currency (except as through the ); (b) act as a substitute for real currency; (c) act as consideration for any legally enforceable contract (except where We grant a license to use Robux or as through the ); or (d) earn interest. Robux are not redeemable or exchangeable for real currency, monetary value, or convertible virtual currency from us or any other third party, except as expressly provided in these Terms or otherwise required by applicable law. Transactions involving the exchange or Robux for virtual items or virtual services on the Platform are not legally enforceable, may not form the basis of any private right of action against Us or any third party, and are governed solely by Us in our sole discretion and application of these Terms.
+Final Payment. All payments for Robux are final and not refundable or exchangeable, except as required by applicable law. You may not transfer, assign, sell, gift, exchange, trade, convert, lease, sublicense, rent, or distribute Robux except through the Service and as expressly permitted by us. Any disposition or attempted disposition of Robux in violation of these Terms will be void and will result in immediate termination of your Account and your license to use Robux. We do not recognize or condone any third-party services that may be used to sell, exchange, transfer, or otherwise dispose of Robux. We do not assume any responsibility for, and will not support, such transactions.
+No Obligation. Neither us nor any third party has any obligation to exchange Robux for anything of value, including, but not limited to, real currency, except as expressly provided in these Terms or otherwise required by applicable law. We, in our sole discretion, may impose limits on Robux, including, but not limited to, the amount that may be acquired, earned, or redeemed.
+Valuation of Robux. You acknowledge and agree that we may engage in actions that may impact the perceived value or acquired price of Robux at any time, except as prohibited by applicable law.
+Reservation of Rights. Except as otherwise prohibited by applicable law and except for the limited licenses granted under these Terms, we reserve and retain all rights, title, and interest in and to Robux.
+Absolute Right. We, in our sole discretion, have the absolute right to manage, modify, suspend, revoke, and terminate your license to use Robux without notice, refund, compensation, or liability to you, except as otherwise prohibited by applicable law. We make no guarantee as to the nature, quality, or value of Robux or the availability or supply thereof.
+DevEx
+Participating in DevEx. We, in our sole discretion, may allow eligible users of the Service to participate in the DevEx. Users participating in the DevEx may redeem Robux for U.S. currency from us based upon an exchange ratio and other requirements, procedures, and limitations established by us in our sole discretion from time to time.
+Reservation of Rights. We, in our sole discretion, have the absolute right to manage, modify, suspend, revoke, and terminate the DevEx without notice, refund, compensation, or liability to you, except as otherwise prohibited by applicable law. If you do anything related to the Service that is against the law or otherwise not in line with these Terms or any of our policies, we reserve the right to deny, suspend or terminate your access to the DevEx (whether or not you have a transaction in process).
+Making Payments, Receiving Payments, Billing, Refundability and Dispute Resolution
+Making Payments through the Service
+Overview. Through the Service, you will be able to make payments for (as the "Payor") two types of Content Services: Dev Services or "Roblox Services," which is anything you can make payments for that is not a Dev Service. When you make payments for Dev Services, payment will be collected through the Service on behalf of the Dev, you will be acquiring the Dev Services from the Dev, and the terms of such transaction shall be between you and the Dev. When you make payments for Roblox Services, you will be making payments for those items directly to us. Unless otherwise expressly stated in these Terms or unless otherwise agreed to, all payments are final and non-refundable, except as required by applicable law. You represent and warrant that you have the authority and right to use the payment method selected by you and that such payment method has sufficient credit or funds available to complete your payment. If you believe someone has made unauthorized purchases without your permission, you should notify us of the charge by completing the Customer Support Form (https://www.roblox.com/support). We reserve the right to close any account with unauthorized charges.
+Memberships. By purchasing a membership that renews, you acknowledge and agree that your membership will automatically renew and, unless you cancel your membership you hereby authorize us to charge the payment method associated with your Account for your membership renewal. We will notify you by email prior to each renewal of your membership that has a duration of 6 months or more. (We may also notify you prior to each renewal of your membership that has a shorter duration.) The period of the membership renewal and the cost of the membership renewal will be the same as your current membership period unless otherwise disclosed to you when you sign up for the membership. You can cancel your membership at any time by going to the billing tab of the account settings page on our website and clicking cancel membership. If you cancel your membership, you receive the remainder of your period of membership that you’ve already paid for. We hope you enjoy your membership.
+No Refunds. As discussed elsewhere in these Terms, there may be situations where games, avatar items, or other content may be removed from the Service (due to violations of these Terms or for other reasons). We will have no liability for any losses you may incur as a result, and will not be liable to refund any Robux or other funds you spent in or for that game or content.
+Receiving Payments through the Service
+Overview. Devs can receive payments for Dev Game Item Services and Dev Avatar Item Services through the Service. You acknowledge that we will, solely, on your behalf and not on our own behalf, display and host Dev Game Services, Dev Game Item Services and Avatar Item Services to be played and experienced by users through the Service. Anything that a Dev receives payments for through the Service is a transaction between the Dev and the Payor, with us acting solely as a facilitator by providing the Dev and Payor with the Service. We take a commission on those payments for providing the Service, certain parts of customer service, moderation, the convenience for users to be able to prepay for Robux and use those Robux on your payments, and other services. The commission may be changed by us at any time for any reason. For a consistent user experience and as a convenience to all, we process all payments through the Service.
+Dev Game Services and Dev Game Item Services. Devs are responsible for all issues relating to their Dev Services and Dev Game Item Services, including dealing with all complaints and issues from Payors in a timely and professional manner.
+Return of Robux to a Payor. If we need to return Robux to a Payor for items for which you received a payment, we reserve the right to reduce accordingly any future payment to you.
+Disputes Between Devs and Payors
+Disputes Regarding Dev Game Services and Dev Game Item Services. If you have any problems or concerns with Dev Game Services or Dev Game Item Services, you should contact the Dev of the Dev Game Services or Dev Game Item Services to resolve the issue. Although we are not responsible for any such issues, we have an interest in making sure that we keep the Service a good experience for all involved. As such, we reserve the right, in our sole discretion, to intervene in and assist in attempting to resolve issues between Devs and Payors. To escalate any such problem to us, please first make a good faith attempt to work out a solution with the Dev. After such a good faith attempt, you may escalate to our Customer Service department completing the Customer Support Form (https://www.roblox.com/support). If we choose to take action, Devs and Payors agree that our decision (which may include deducting Robux from the Dev and crediting of Robux to the Payor) is final and Devs and Payors shall abide by that decision. You agree to work with us in a timely manner to resolve all such issues, and failure to do so is considered a violation of these Terms.
+Dev Avatar Item Services. If you have any problems or concerns with Dev Avatar Item Services, you should contact us. Although the Dev Avatar Item Services are not actually our services, all Avatar-related services are distributed to the Payor through the catalog provided by the Service. Both Devs and Payors agree to follow our determination with respect to any problems or issues regarding Dev Avatar Item Services.
+Roblox Services. Disputes regarding Roblox Services are handled according to Section 11.
+Intellectual Property
+Intellectual Property
+Ownership of our Intellectual Property. The visual interfaces, graphics, design, compilation, information, data, computer code (including source code or object code), products, software, services, and all other elements of the Service ("Intellectual Property" or "IP") are protected by law. All IP contained in the Service is our property or our users’ or third-party licensors’ property. The IP includes UGC that has been licensed to us by our users under Section 6(B)(3) below. Except as expressly authorized by us in these Terms, you may not make use of any IP contained in the Service unless you get separate permission from the owner. We reserve all rights to the IP not granted expressly in these Terms.
+License. Subject to your ongoing compliance with these Terms, we grant you a non-exclusive, personal, limited, revocable, non-transferable license to use the Service on compatible devices that you own or control for your personal, entertainment use. This includes the right to download and use software that we make available for download as part of the Service, in object code form only. This software is licensed, not sold, to you for use only pursuant to the Terms and only in connection with your use of the Service.
+Music Incorporated in Your UGC.
+Your Music. "Your Music" is a category of UGC and includes both sound recordings and musical works, including when embedded in sound recordings or audiovisual works. You are permitted to use Your Music on the Service, provided that Your Music complies with all of the provisions of these Terms of Use.
+Roblox Licensed Music. Roblox may, in its sole discretion, choose to make sound recordings and the musical works embodied therein ("Licensed Music") available for you to use in your UGC. Your use of the Roblox Licensed Music is subject to the following license, terms and conditions.
+License. We grant you a non-exclusive, personal, limited, revocable at any time, non-transferable license solely to do the following: (i) synchronize Licensed Music into UGC ("UGC with Licensed Music"), solely using the Service and solely during the period of time that such Licensed Music is made available by Roblox; and (ii) play, listen and interact with UGC with Licensed Music solely on the Service.
+Terms and Conditions.
+250 Track Limit. You may not use Licensed Music to create a streaming service or music library within UGC with Licensed Music nor may you charge users to listen to a specific track of the Licensed Music. You have the right to place, play, and have played up to 250 discrete tracks of Licensed Music, or portions thereof, at any one time into a single UGC with Licensed Music. You can replace existing tracks of Licensed Music into a single UGC with new tracks at any time, provided that there are no more than 250 Licensed Music tracks in such UGC at any one time.
+Modifications/Derivative Works. You may modify the Licensed Music to synchronize into the UGC. Such modifications may include, but not be limited to, editing of the Licensed Music or using a portion of a track of Licensed Music or sampling of portions of the Licensed Music. All modifications to the Licensed Music are considered derivative works, and shall be included in the definition of Licensed Music. All rights to such derivative works are retained by Roblox and its licensors.
+Use only on the Service. You shall not export or download and shall not provide a means for anyone to export or download the Licensed Music to a destination outside of the Service.
+Attribution. You are not required to, but may choose to provide, attribution for Licensed Music used by you in any UGC. For example, if we identify the owner of Licensed Music as APM Music, you may message that the Licensed Music is provided "Courtesy of APM Music".
+Revocation of Rights to Licensed Music. As Licensed Music is licensed by us from third parties, your rights to Licensed Music is revocable at any time and for any or no reason in our sole discretion and without any liability to you. If we revoke your right to use Licensed Music, you will have to remove such Licensed Music from your UGC. We will try to provide you with advance notice before revoking any rights to Licensed Music but we reserve the right to do so with no advance notice. We reserve the right to remove any UGC with Licensed Music from the Service at any time in our sole discretion and without any liability to you.
+Restrictions. You may not rent, lease, lend, sell, redistribute or sublicense any portion of the Service, including software. You may not copy, distribute, publicly perform, publicly display, decompile, reverse engineer, disassemble, attempt to derive the source code, modify, or create derivative works of the Service or any downloaded or underlying software or technology (except as and only to the extent any foregoing restriction is prohibited by applicable law), nor attempt to disable or circumvent any security or other technological measure designed to protect the Service, including any protections for Content Services.
+Breach. If you breach these license restrictions, or otherwise exceed the scope of the licenses granted herein, you may be subject to prosecution and damages, as well as liability for infringement of intellectual property rights.
+Updates. These Terms will govern any updates provided to you by us that replace and/or supplement any part of the Service, unless such update is accompanied by a separate license, in which case the terms of that license will govern.
+User Generated Creations - Users, Devs and Groups
+Generally. We will provide an opportunity for you to Provide UGC through the Service.
+Groups. Through the Service, you may have the opportunity to join a Group (as defined below). The individual or entity controlling or owning the email address for a Group will be deemed the owner of the Group for all purposes (the "Owner"). The Owner may choose (in that person’s sole discretion) to make a different person the new Owner (in such case the new owner shall be considered the Owner). If the Owner’s account is terminated pursuant to these Terms, Roblox may, in its sole business judgment, determine who is the rightful person to be made the new Owner of the Group (and that user shall be considered the Owner); provided, however, that nothing will obligate Roblox to designate a new Owner if Roblox in its sole business judgment determines to terminate a Group. By participating in a Group, you hereby grant the Owner of the Group, as such Owner may change over time, the sole and exclusive authority to act on your behalf to authorize Roblox to use any UGC created by the Group as set forth in these Terms or pursuant to any other agreement entered into between the Owner and Roblox. An Owner and the members of a Group may separately agree upon how the Owner may exercise the authority granted to such Owner in these Terms or how the members of a Group may allocate amongst themselves any payments that may be made to the Owner for any activities undertaken or UGC created by the Group, but in any event Roblox will make any payments due for any activities undertaken or UGC created by the Group solely to the Owner of the Group. You hereby waive any claims that you may have against Roblox for any payments made to an Owner by Roblox, and you agree to seek recovery of any payments due you solely from the Owner of any Group of which you are a member. Except as may be provided at law, any duty of accounting between an Owner of a Group and members of such Group will arise solely pursuant to a written agreement among the Owner of a Group and its members, and Roblox will not be bound by any agreement among the Owner and members. Any reference to "you" in this Section 6 shall, in the case of a Group, only mean the Owner. A "Group" exists where users or Devs have joined together to register as a group, via a single email address, on the Service in order to release a game or content via the Service. For corporate Accounts, the company (or other legal entity) named on the Account is considered to be a Group.
+Ownership of UGC and License Grant to Roblox. For any UGC that you have ever Provided or that you will Provide (whether created solely by you or together with others) (a) between you and us or you and users, you retain all copyrights that you may hold in the UGC, and (b) in consideration of using the Service and the potential to earn Robux as discussed in the Robux section, you grant us a perpetual, irrevocable, worldwide, non-exclusive, royalty-free right and license (with the right to sublicense to any person or entity, whether a user of the Service or not) to host, store, transfer, publicly display, publicly perform (including by means of digital audio transmissions and on a through-to-the-audience basis), reproduce (including in timed synchronization to visual images), modify, create derivative works of, distribute, and use in any way the UGC that you Provide, in whole or in part, including modifications and derivative works, in any media or formats (tangible or intangible) and through any media, items or channels (online, offline, or others, now known or hereafter developed), including for publicity and marketing purposes (except that you are not granting us any license to make new or derivative video games using your UGC). Kindly note that if you Provide UGC (such as a catalog item or other items to or for the Service), you do not have the right to remove or modify that UGC (unless Roblox provides tools for you to remove or modify that specific type of UGC, or unless otherwise required by law). When using the Service, you may be prompted to grant other Roblox users the right to use your UGC. If you agree to grant this right, other users may use your UGC to create their own games and other UGC on the Service, and you will not be entitled to any revenue that those other users earn, even if they use your UGC.
+For the avoidance of doubt, the rights granted in this Section 6(B)(3) include, but are not limited to, the right to reproduce sound recordings (and make mechanical reproductions of the musical works embodied in such sound recordings) and publicly perform and communicate to the public sound recordings (and the musical works embodied therein), all on a royalty-free basis. This means that you are granting Roblox rights to use your UGC as contemplated by this Section 6(B)(3) without the obligation to pay royalties to any third party, including, without limitation, a sound recording copyright owner (e.g., a record label), a musical work copyright owner (e.g., a music publisher), a performing rights organization (e.g., ASCAP, BMI, SESAC, etc.) (a "PRO"), a sound recording PRO (e.g., SoundExchange), any unions or guilds, and engineers, producers or other royalty participants involved in the creation of UGC.
+Regarding the publicity and marketing rights, this allows us to provide a license to a TV show, movie, book, annual, encyclopedia or anthology, website, social media, online or print magazine or newspaper, or other commercial, non-commercial or educational purpose to use your UGC and associated username in ways that we think will help publicize or market the Service, any part of the Service, any UGC on the Service and tangible items off the Service, even in case you have exercised a right to be forgotten under the European General Data Protection Regulation. Other than the potential to earn Robux, we shall not be obligated to provide to you any compensation, attribution, or other payments for any reasons, including for exploitation of the license discussed immediately above, whether in relation to the Service or otherwise, nor are we obligated to exploit this license. BY ACCEPTING THESE TERMS AND CONTINUING TO USE THE SERVICE, YOU AGREE THAT THIS LICENSE APPLIES TO ANY UGC YOU PROVIDED TO US AT ANY TIME (FROM YOUR FIRST USE OF THE SERVICE, WHICH MAY PREDATE YOUR ACCEPTANCE OF THIS VERSION OF THE TERMS).
+Templates. Templates may be made available to you (in our software tool 'Studio' or otherwise) as a starting point for creating your UGC, however your use of a template does not give you any copyrights or other ownership rights in such template.
+UGC Representations and Warranties; Rights in UGC.
+You are solely responsible for your UGC and you represent and warrant that:
+You are the creator and owner of, or have the necessary licenses, rights, consents, and permissions, to use and to authorize us to exploit the license that you grant to us hereunder; and
+Your UGC, and the use of your UGC as contemplated by these Terms, does not and will not: (i) infringe, violate, or misappropriate any third-party right, including any copyright, trademark, patent, trade secret, moral right, privacy right, right of publicity, or any other intellectual property or proprietary right; (ii) slander, defame, libel, or invade the right of privacy, publicity or other property rights of any other person; (iii) require Roblox to obtain any further licenses from or pay royalties or compensation or other amounts or provide any attribution to any third parties; (iv) result in a breach of contract between you and a third party; or (v) cause us to violate any law or regulation.
+You must not Provide any UGC if you are not the owner of or are not fully authorized to grant rights in all of the elements of the UGC you intend to Provide. In addition, if you only own the rights in and to a sound recording, but not to the underlying musical works embodied in such sound recordings, then you must not Provide such sound recordings unless you have all necessary rights, authorizations and permissions with respect to such embedded musical works that grant you sufficient rights to grant the licenses to Roblox under these Terms. You agree to pay all monies owing to any person as a result of Providing your UGC.
+Specific Rules for Musical Works and for Recording Artists. If you are a composer or author of a musical work and are affiliated with a PRO, then you must notify your PRO of the royalty-free license you grant through these Terms to Roblox. You are solely responsible for ensuring your compliance with the relevant PRO’s reporting obligations. If you have assigned your rights to a music publisher, then you must obtain the consent of such music publisher to grant the royalty-free license(s) set forth in these Terms or have such music publisher enter into these Terms with Roblox. Just because you authored a musical work (e.g., wrote a song) does not mean you have the right to grant Roblox the licenses in these Terms. If you are a recording artist under contract with a record label, then you are solely responsible for ensuring that your use of the Service is in compliance with any contractual obligations you may have to your record label, including if you create any new recordings through the Service that may be claimed by your label.
+Through-To-The-Audience Rights. All of the rights you grant in these Terms are provided on a through-to-the-audience basis, meaning the owners or operators of third-party services will not have any separate liability to you or any other third-party for UGC Provided or used on such third party services via the Service.
+Paying for Random Virtual Items. If you provide games/experiences that allow users to pay (with Robux or otherwise) for random virtual items, you must let users know the odds of receiving each type of random item (that a user might receive) prior to paying. Please note that you must disclose those odds whether the user pays directly or indirectly. Here is an example of a user paying indirectly: Your game allows a user to receive a virtual coin in exchange for Robux, the user then goes to a different place in the game and throws the coin into a fountain, and then the user gets a random virtual item. In this example, you must disclose the odds of receiving each type of random item before the user throws the virtual coin into the fountain.
+UGC Disclaimer. We are under no obligation to edit or control UGC that you or others Provide, and will not be in any way responsible or liable for UGC. We may, however, at any time and without prior notice, screen, remove, edit, or block any UGC that in our sole judgment violates these Terms or is otherwise objectionable. You understand that when using the Service, you will be exposed to UGC from a variety of sources and acknowledge that UGC may be inaccurate, offensive, indecent, or objectionable. You agree to waive, and do waive, any legal or equitable right or remedy you have or may have against us with respect to UGC. If notified by a user or content owner that UGC allegedly does not conform to these Terms, we may investigate the allegation and determine in our sole discretion whether to remove the UGC, which we reserve the right to do at any time and without notice. For clarity, we do not permit copyright-infringing activities on the Service. Please alert us of any inappropriate UGC or other materials you find on the Service.
+Digital Millennium Copyright Act
+Notice. We respect the intellectual property rights of others and we ask you to do the same. If you are a copyright owner or an agent of a copyright owner and believe that any content on the Service infringes upon your copyrights, you may submit a notification pursuant to the Digital Millennium Copyright Act ("DMCA") by contacting our Copyright Agent at or Legal, P.O. Box 1265, San Mateo, CA 94401. You acknowledge that if you fail to comply with all of the requirements of this Section 6(C), your DMCA notice may not be valid. You must provide the following information in writing (see 17 U.S.C 512(c)(3) for further detail):
+An electronic or physical signature of the person authorized to act on behalf of the owner of the copyright or other right being infringed;
+A description of the copyright-protected work or other intellectual property right that you claim has been infringed;
+A description of the material that you claim is infringing and where it is located;
+Your address, telephone number, and email address;
+A statement by you that you have a good faith belief that the use of those materials is not authorized by the copyright owner, its agent, or the law; and
+A statement by you that the above information in your notice is accurate and that, under penalty of perjury, you are the copyright or intellectual property owner or authorized to act on the copyright or intellectual property owner’s behalf.
+Counter-Notice. Regarding any content that was removed or disabled, if you believe that your content is not infringing or that you have the authorization from the copyright owner, the copyright owner’s agent, or pursuant to the law, to post and use the material in your content, you may send a counter-notice to our Copyright Agent. When our Copyright Agent receives a counter-notice, we may send a copy of the counter-notice to the original complaining party informing that party that we may, in 10 business days, replace the removed content or stop disabling it. Unless the copyright owner files an action seeking a court order against the provider of the content, the removed content may be replaced or access to it restored, in 10 to 14 business days or more after receipt of the counter-notice, in our sole discretion.
+Repeat Infringer Policy. Roblox’s intellectual property policy is to: (i) remove or disable access to material that Roblox believes in good faith, upon notice from an intellectual property rights owner or his or her agent, is infringing the intellectual property rights of a third party by being made available through the Service; and (ii) in appropriate circumstances, to terminate the Accounts of and block access to the Service by any User who repeatedly or egregiously infringes other people’s copyrights or other intellectual property rights.
+Trademark Infringement
+Our policies prohibit you from Providing UGC that infringes trademarks. If you Provide UGC that infringes trademarks, your UGC can be blocked or removed.
+If you are a trademark owner that believes your trademark is being infringed, please note that we are not in a position to mediate disputes between users and the holders of trademark rights. That being said, we take your rights seriously. So, we will look into and try to resolve any allegations of trademark infringement. Therefore, if you feel that your trademark rights are being infringed, contact our Trademark Agent at or Legal, P.O. Box 1265, San Mateo, CA 94401. When you contact us, please provide the following information in writing:
+An electronic or physical signature of the person authorized to act on behalf of the owner of the trademark;
+A description of the trademark right that you claim has been infringed;
+A description of the material that you claim is infringing and where it is located;
+Your address, telephone number, and email address;
+A statement by you that you have a good faith belief that the use of those materials is not authorized by the trademark owner, its agent, or the law; and
+A statement by you that the above information in your notice is accurate and that, under penalty of perjury, you are the trademark owner or authorized to act on the copyright or intellectual property owner’s behalf.
+Third-Party Materials.
+Third-Party Materials Disclaimer. Certain portions of the Service may include, display, or make available content, data, information, applications or materials from third parties ("Third-Party Materials"). You understand that by using the Service, you may encounter Third-Party Materials, such as third-party advertisements and promotional content that may be deemed offensive, indecent, or objectionable, which content may or may not be identified as having explicit language, and that may contain links or references to objectionable material. Nevertheless, you agree to use the Service at your sole risk and that we shall not have any liability to you for content that may be found to be offensive, indecent, objectionable, inaccurate, incomplete, untimely, invalid, illegal, of poor quality or otherwise.
+Online Safety. Roblox cares about the safety of our users. If you see any content or materials (including Third Party Materials) on the Service that appears to recruit, entice, advertise, or solicit any person to perform a commercial sexual act, please use the Customer Support Form (https://www.roblox.com/support) and select the User Safety Concern help category to immediately report the user and situation.
+Use at Own Risk. In addition, third-party services (as discussed above) and Third-Party Materials that may be accessed from, displayed on or linked to from your device are not available in all languages or in all countries. We make no representation that such services and materials are appropriate or available for use in any particular location. To the extent you choose to access such services or materials, you do so at your own initiative and are responsible for compliance with any applicable laws, including but not limited to applicable local laws.
+Indemnity. You agree that you will be responsible for your use of the Service, and you agree to defend and indemnify us and our officers, directors, employees, consultants, affiliates, investors, business partners, subsidiaries and agents (together, the "Affiliated Parties") from and against every claim, liability, damage, loss, and expense, including reasonable attorneys’ fees and costs, arising out of or in any way connected with: (a) your access to, use of, or alleged use of the Service; (b) your violation of any portion of these Terms, any representation, warranty, or agreement referenced in these Terms, or any applicable law or regulation; (c) your violation of any third-party right, including any intellectual property or proprietary right, publicity or privacy right, property right, or confidentiality obligation; or (d) any Dispute or issue between you and any third party. We reserve the right, at our own expense, to assume the exclusive defense and control of any matter otherwise subject to indemnification by you (without limiting your indemnification obligations with respect to that matter), and in that case, you agree to cooperate with our defense of that claim.
+</p>
+
+<script>
+    var Roblox = Roblox || {};
+    Roblox.LoginMeta = {
+        signupUrl: "https://www.roblox.com/account/signupredir",
+        forgotCredentialsUrl: "https://www.roblox.com/login/forgot-password-or-username",
+        homeUrl: "https://www.roblox.com/home",
+        securityNotificationUrl: "https://www.roblox.com/login/securitynotification",
+        apiProxyUrl: "https://api.roblox.com",
+        fbSignInUrl: "",
+        loginPageUrl: "https://www.roblox.com/newlogin",
+        isLoginWithEmailEnabled: true,
+        isLoginWithPhoneEnabled: true,
+        isPromptUnverifiedEmailsEnabled: false
+    };
+</script>
+
+        <script type="text/javascript" src="https://cdns.gigya.com/js/gigya.js?apiKey=3_OsvmtBbTg6S_EUbwTPtbbmoihFY5ON6v6hbVrTbuqpBs7SyF_LQaJwtwKJ60sY1p" async defer>
+            {
+                bypassCookiePolicy: 'never'
+            }
+        </script>
+
+
+<div id="SocialIdentitiesInformation"
+     data-rbx-login-redirect-url="/social/postlogin"
+
+
+
+     data-context="loginPage">
+</div>
+
+        </div>
+            </div>
+<!--Bootstrap Footer React Component -->
+
+<footer class="container-footer" id="footer-container"
+        data-is-giftcards-footer-enabled="True">
+</footer>
+
+</div>
+
+
+
+    <script type="text/javascript">function urchinTracker() {}</script>
+
+
+<script type="text/javascript">
+    if (typeof Roblox === "undefined") {
+        Roblox = {};
+    }
+    if (typeof Roblox.PlaceLauncher === "undefined") {
+        Roblox.PlaceLauncher = {};
+    }
+    var isRobloxIconEnabledForRetheme = "True";
+    var robloxIcon = isRobloxIconEnabledForRetheme === 'True' ? "<span class='icon-logo-r-95'></span>" : "<img src='https://images.rbxcdn.com/8e7879f99cfa7cc3b1fce74f8191be03.svg' width='90' height='90' alt='R'/>";
+    Roblox.PlaceLauncher.Resources = {
+        RefactorEnabled: "True",
+        IsProtocolHandlerBaseUrlParamEnabled: "False",
+        ProtocolHandlerAreYouInstalled: {
+            play: {
+                content: robloxIcon + "<p>곧 체험이 시작됩니다!</p>",
+                buttonText: "Roblox 다운로드 및 설치",
+                footerContent: "<a href='https://assetgame.roblox.com/game/help'class= 'text-name small' target='_blank' >여기를 클릭하여 도움을 받아보세요</a> "
+            },
+            studio: {
+                content: "<img src='https://images.rbxcdn.com/f25e4cadae29ae9a57a962126b2d2e2a.png' width='95' height='95' alt='R' /><p>여러분만의 체험을 제작해 보세요!</p>",
+                buttonText: "Studio 다운로드"
+            }
+        },
+        ProtocolHandlerStartingDialog: {
+            play: {
+                content: robloxIcon + "<p>Roblox를 불러오는 중입니다. 체험을 즐길 준비 되셨나요?</p>"
+            },
+            studio: {
+                content: "<img src='https://images.rbxcdn.com/f25e4cadae29ae9a57a962126b2d2e2a.png' width='95' height='95' alt='R' /><p>Roblox Studio 확인 중...</p>"
+            },
+            loader: "<span class='spinner spinner-default'></span>"
+        }
+    };
+</script>
+<div id="PlaceLauncherStatusPanel" style="display:none;width:300px"
+     data-new-plugin-events-enabled="True"
+     data-event-stream-for-plugin-enabled="True"
+     data-event-stream-for-protocol-enabled="True"
+     data-is-game-launch-interface-enabled="True"
+     data-is-protocol-handler-launch-enabled="True"
+     data-is-user-logged-in="False"
+     data-os-name="Windows"
+     data-protocol-name-for-client="roblox-player"
+     data-protocol-name-for-studio="roblox-studio"
+     data-protocol-roblox-locale="en_us"
+     data-protocol-game-locale="en_us"
+     data-protocol-url-includes-launchtime="true"
+     data-protocol-detection-enabled="true"
+     data-protocol-separate-script-parameters-enabled="true"
+     data-protocol-avatar-parameter-enabled="false"
+     data-protocol-channel-name="LIVE"
+     data-protocol-studio-channel-name="LIVE"
+     data-protocol-player-channel-name="LIVE">
+    <div class="modalPopup blueAndWhite PlaceLauncherModal" style="min-height: 160px">
+        <div id="Spinner" class="Spinner" style="padding:20px 0;">
+            <img data-delaysrc="https://images.rbxcdn.com/e998fb4c03e8c2e30792f2f3436e9416.gif" height="32" width="32" alt="Progress" />
+        </div>
+        <div id="status" style="min-height:40px;text-align:center;margin:5px 20px">
+            <div id="Starting" class="PlaceLauncherStatus MadStatusStarting" style="display:block">
+                Roblox 시작 중...
+            </div>
+            <div id="Waiting" class="PlaceLauncherStatus MadStatusField">회원과 연결 중...</div>
+            <div id="StatusBackBuffer" class="PlaceLauncherStatus PlaceLauncherStatusBackBuffer MadStatusBackBuffer"></div>
+        </div>
+        <div style="text-align:center;margin-top:1em">
+            <input type="button" class="Button CancelPlaceLauncherButton translate" value="취소" />
+        </div>
+    </div>
+</div>
+<div id="ProtocolHandlerClickAlwaysAllowed"
+     class="ph-clickalwaysallowed"
+
+     style="display:none;">
+    <p class="larger-font-size">
+        <span class="icon-moreinfo"></span>
+
+                    상단의 대화 상자에서 <strong>항상 URL: Roblox Protocol 링크 열기</strong>를 선택 후 <strong>URL: Roblox Protocol 열기</strong>를 클릭하면 다음번에 체험을 더 빨리 시작할 수 있어요!
+
+    </p>
+</div>
+
+<script type="text/javascript">
+function checkRobloxInstall() {
+         return RobloxLaunch.CheckRobloxInstall('https://www.roblox.com/Download');
+}
+</script>
+
+
+    <div id="InstallationInstructions" class="" style="display:none;">
+        <div class="ph-installinstructions">
+            <div class="ph-modal-header">
+                    <span class="icon-close simplemodal-close"></span>
+                    <h3 class="title">Roblox를 이용해 주셔서 감사합니다</h3>
+            </div>
+            <div class="modal-content-container">
+                <div class="ph-installinstructions-body ">
+
+
+        <ul class="modal-col-4">
+            <li class="step1-of-4">
+                <h2>1</h2>
+                <p class="larger-font-size">방금 웹 브라우저를 통해 다운로드한 <strong>RobloxPlayer.exe</strong>를 클릭하여 Roblox 설치 프로그램을 실행하세요.</p>
+                <img data-delaysrc="https://images.rbxcdn.com/28eaa93b899b93461399aebf21c5346f.png" />
+            </li>
+            <li class="step2-of-4">
+                <h2>2</h2>
+                <p class="larger-font-size">컴퓨터에 메시지가 표시되면 <strong>실행</strong>을 클릭하여 설치 과정을 시작하세요.</p>
+                <img data-delaysrc="https://images.rbxcdn.com/51328932dedb5d8d61107272cc1a27db.png" />
+            </li>
+            <li class="step3-of-4">
+                <h2>3</h2>
+                <p class="larger-font-size">Roblox 설치가 완료되면 <strong>확인</strong>을 클릭하세요.</p>
+                <img data-delaysrc="https://images.rbxcdn.com/3797745629baca2d1b9496b76bc9e6dc.png" />
+            </li>
+            <li class="step4-of-4">
+                <h2>4</h2>
+                <p class="larger-font-size">설치가 완료되면 하단의 <strong>방문</strong> 버튼을 클릭해 시작하세요!</p>
+                <div class="VisitButton VisitButtonContinueGLI">
+                    <a class="btn btn-primary-lg disabled btn-full-width">참가</a>
+                </div>
+            </li>
+        </ul>
+
+                </div>
+            </div>
+            <div class="xsmall">
+                Roblox 설치 프로그램의 다운로드가 곧 시작됩니다. 시작되지 않으면 <a id="GameLaunchManualInstallLink" href="#" class="text-link">지금 다운로드</a>를 클릭하세요.
+ <script>
+                       if (Roblox.ProtocolHandlerClientInterface && typeof Roblox.ProtocolHandlerClientInterface.attachManualDownloadToLink === 'function') {
+                           Roblox.ProtocolHandlerClientInterface.attachManualDownloadToLink();
+                       }
+                   </script>
+            </div>
+        </div>
+    </div>
+    <div class="InstallInstructionsImage" data-modalwidth="970" style="display:none;"></div>
+
+
+<div id="pluginObjDiv" style="height:1px;width:1px;visibility:hidden;position: absolute;top: 0;"></div>
+<iframe id="downloadInstallerIFrame" name="downloadInstallerIFrame" style="visibility:hidden;height:0;width:1px;position:absolute"></iframe>
+
+<script onerror='Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)' data-monitor='true' data-bundlename='clientinstaller' type='text/javascript' src='https://js.rbxcdn.com/459f4d69b0709806c7ee83714896739e.js'></script>
+
+<script type="text/javascript">
+    Roblox.Client._skip = null;
+    Roblox.Client._CLSID = '76D50904-6780-4c8b-8986-1A7EE0B1716D';
+    Roblox.Client._installHost = 'setup.roblox.com';
+    Roblox.Client.ImplementsProxy = true;
+    Roblox.Client._silentModeEnabled = true;
+    Roblox.Client._bringAppToFrontEnabled = false;
+    Roblox.Client._currentPluginVersion = '';
+    Roblox.Client._eventStreamLoggingEnabled = true;
+
+
+        Roblox.Client._installSuccess = function() {
+            if(GoogleAnalyticsEvents){
+                GoogleAnalyticsEvents.ViewVirtual('InstallSuccess');
+                GoogleAnalyticsEvents.FireEvent(['Plugin','Install Success']);
+                if (Roblox.Client._eventStreamLoggingEnabled && typeof Roblox.GamePlayEvents != "undefined") {
+                    Roblox.GamePlayEvents.SendInstallSuccess(Roblox.Client._launchMode, play_placeId);
+                }
+            }
+        }
+
+
+        if ((window.chrome || window.safari) && window.location.hash == '#chromeInstall') {
+            window.location.hash = '';
+            var continuation = '(' + $.cookie('chromeInstall') + ')';
+            play_placeId = $.cookie('chromeInstallPlaceId');
+            Roblox.GamePlayEvents.lastContext = $.cookie('chromeInstallLaunchMode');
+            $.cookie('chromeInstallPlaceId', null);
+            $.cookie('chromeInstallLaunchMode', null);
+            $.cookie('chromeInstall', null);
+            RobloxLaunch._GoogleAnalyticsCallback = function() { var isInsideRobloxIDE = 'website'; if (Roblox && Roblox.Client && Roblox.Client.isIDE && Roblox.Client.isIDE()) { isInsideRobloxIDE = 'Studio'; };GoogleAnalyticsEvents.FireEvent(['Plugin Location', 'Launch Attempt', isInsideRobloxIDE]);GoogleAnalyticsEvents.FireEvent(['Plugin', 'Launch Attempt', 'Play']);EventTracker.fireEvent('GameLaunchAttempt_Win32', 'GameLaunchAttempt_Win32_Plugin'); if (typeof Roblox.GamePlayEvents != 'undefined') { Roblox.GamePlayEvents.SendClientStartAttempt(null, play_placeId); }  };
+            Roblox.Client.ResumeTimer(eval(continuation));
+        }
+
+</script>
+
+
+<div class="ConfirmationModal modalPopup unifiedModal smallModal" data-modal-handle="confirmation" style="display:none;">
+    <a class="genericmodal-close ImageButton closeBtnCircle_20h"></a>
+    <div class="Title"></div>
+    <div class="GenericModalBody">
+        <div class="TopBody">
+            <div class="ImageContainer roblox-item-image" data-image-size="small" data-no-overlays data-no-click>
+                <img class="GenericModalImage" alt="generic image" />
+            </div>
+            <div class="Message"></div>
+        </div>
+        <div class="ConfirmationModalButtonContainer GenericModalButtonContainer">
+            <a href id="roblox-confirm-btn"><span></span></a>
+            <a href id="roblox-decline-btn"><span></span></a>
+        </div>
+        <div class="ConfirmationModalFooter">
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        Roblox = Roblox || {};
+        Roblox.Resources = Roblox.Resources || {};
+
+        Roblox.Resources.GenericConfirmation = {
+            yes: "Yes",
+            No: "No",
+            Confirm: "Confirm",
+            Cancel: "Cancel"
+        };
+    </script>
+</div>
+
+<div id="modal-confirmation" class="modal-confirmation" data-modal-type="confirmation">
+    <div id="modal-dialog"  class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true"><span class="icon-close"></span></span><span class="sr-only">Close</span>
+                </button>
+                <h5 class="modal-title"></h5>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-top-body">
+                    <div class="modal-message"></div>
+                    <div class="modal-image-container roblox-item-image" data-image-size="medium" data-no-overlays data-no-click>
+                        <img class="modal-thumb" alt="generic image"/>
+                    </div>
+                    <div class="modal-checkbox checkbox">
+                        <input id="modal-checkbox-input" type="checkbox"/>
+                        <label for="modal-checkbox-input"></label>
+                    </div>
+                </div>
+                <div class="modal-btns">
+                    <a href id="confirm-btn"><span></span></a>
+                    <a href id="decline-btn"><span></span></a>
+                </div>
+                <div class="loading modal-processing">
+                    <img class="loading-default" src='https://images.rbxcdn.com/4bed93c91f909002b1f17f05c0ce13d1.gif' alt="Processing..." />
+                </div>
+            </div>
+            <div class="modal-footer text-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript">
+    var Roblox = Roblox || {};
+    Roblox.jsConsoleEnabled = false;
+</script>
+
+
+
+    <script type="text/javascript">
+        $(function () {
+            Roblox.CookieUpgrader.domain = 'roblox.com';
+            Roblox.CookieUpgrader.upgrade("GuestData", { expires: Roblox.CookieUpgrader.thirtyYearsFromNow });
+            Roblox.CookieUpgrader.upgrade("RBXSource", { expires: function (cookie) { return Roblox.CookieUpgrader.getExpirationFromCookieValue("rbx_acquisition_time", cookie); } });
+            Roblox.CookieUpgrader.upgrade("RBXViralAcquisition", { expires: function (cookie) { return Roblox.CookieUpgrader.getExpirationFromCookieValue("time", cookie); } });
+
+                Roblox.CookieUpgrader.upgrade("RBXMarketing", { expires: Roblox.CookieUpgrader.thirtyYearsFromNow });
+
+
+                Roblox.CookieUpgrader.upgrade("RBXSessionTracker", { expires: Roblox.CookieUpgrader.fourHoursFromNow });
+
+
+                Roblox.CookieUpgrader.upgrade("RBXEventTrackerV2", {expires: Roblox.CookieUpgrader.thirtyYearsFromNow});
+
+        });
+    </script>
+
+
+
+
+
+    <script onerror='Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)' data-monitor='true' data-bundlename='intl-polyfill' type='text/javascript' src='https://js.rbxcdn.com/d44520f7da5ec476cfb1704d91bab327.js'></script>
+
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="InternationalCore" data-bundle-source="Main" src="https://js.rbxcdn.com/95044be3ff42e3dc429313faca1316cea62f328a39e29689ffeda9002f3a8bc6.js"></script>
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="TranslationResources" data-bundle-source="Main" src="https://js.rbxcdn.com/83d836a661ff433d5b7ce719c489e43af590ff75ab39ccc6d393546fe91b766a.js"></script>
+
+
+    <script onerror='Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)' data-monitor='true' data-bundlename='leanbase' type='text/javascript' src='https://js.rbxcdn.com/1c6abb349c90a9671bd01bbc4ee622b2.js'></script>
+
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="CoreUtilities" data-bundle-source="Main" src="https://js.rbxcdn.com/49cf9976738c4f5791c14fb9f1ee9c84b3e45dd75af842a613a3216af0bd9ab0.js"></script>
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="CoreRobloxUtilities" data-bundle-source="Main" src="https://js.rbxcdn.com/09c0fe73025a49dbb397295b5ee57e7b5c7a20e7b74645178c037a7438d7f810.js"></script>
+
+
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="React" data-bundle-source="Main" src="https://js.rbxcdn.com/6beb1c5bcec1a4449303da9e523d45a1aa1652f9b42ae6c8a3ac347955ca3b3f.js"></script>
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="ReactUtilities" data-bundle-source="Main" src="https://js.rbxcdn.com/898cb6e9c467d15ad80a67d019f3815d35dbc6ff60c12ef7dd928e8fbaf02b0b.js"></script>
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="ReactStyleGuide" data-bundle-source="Main" src="https://js.rbxcdn.com/c65d6975bac58c3e22cd6f6ac6ed7c6da662106271a0107e06c3aaa2a1d85ef4.js"></script>
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="ConfigureWebApps" data-bundle-source="Main" src="https://js.rbxcdn.com/c756de2b0f5f2f05d62899a3b602b4a3b573ad3faa1adea789291ebe9c66a002.js"></script>
+
+
+
+    <script onerror='Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)' data-monitor='true' data-bundlename='angular' type='text/javascript' src='https://js.rbxcdn.com/ae3d621886e736e52c97008e085fa286.js'></script>
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="AngularJsUtilities" data-bundle-source="Main" src="https://js.rbxcdn.com/81164cee2ed2b07903bf00968368213664e0e78bdbdf9418389c2d2a8512cccf.js"></script>
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="InternationalAngularJs" data-bundle-source="Main" src="https://js.rbxcdn.com/90f18784a43a70553e967191b948f70b0193df565f1605762c3c1e245ab4b55a.js"></script>
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="Thumbnails" data-bundle-source="Main" src="https://js.rbxcdn.com/5cbced54f9f243ae5e05e7d00f87fc7b966e65b549cb20701b781d1b1b74f154.js"></script>
+
+
+
+
+
+
+<div id="presence-registration-bootstrap-data"
+     data-is-enabled="False"
+     data-interval="15000"></div><script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="PresenceRegistration" data-bundle-source="Main" src="https://js.rbxcdn.com/0a83202cf5f2310227e607928f73a26cdaa7d5c27f892b99ef51ec3b863a694d.js"></script>
+    <div ng-modules="baseTemplateApp">
+        <script type="text/javascript" src="https://js.rbxcdn.com/ffcc04436179c6b2a6668fdfcfbf62b1.js"></script>
+    </div>
+
+    <div ng-modules="pageTemplateApp">
+        <script type="text/javascript" src="https://js.rbxcdn.com/3e544c8e724dcdc296258b0ca69401a9.js"></script>
+    </div>
+
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="VerificationUpsell" data-bundle-source="Main" src="https://js.rbxcdn.com/77e7b5a83c50728043207196edb8679437757b6de6e82ca180d507a28f869c96.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Feature.VerificationUpsell" data-bundle-source="Unknown" src="https://js.rbxcdn.com/9e783e644eeed2003ff5377bb7b3227a73732008ab4f7e9ca48afab6f4c0a36a.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Feature.VerificationUpsell" data-bundle-source="Unknown" src="https://js.rbxcdn.com/faa7b128aa8b8755d9133354c1bb99c5a083914d5fd3afd57d9496be39c78ee6.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="Navigation" data-bundle-source="Main" src="https://js.rbxcdn.com/8583cb8f16376b92298b8e452bd9d664bfa1b012c87f9e8b7a4255ff25063d4d.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_CommonUI.Features" data-bundle-source="Unknown" src="https://js.rbxcdn.com/21bf612df96ea58fe7211b04fb172dbe9696f293c37823fe7f593bb5bc792ef9.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_CommonUI.Features" data-bundle-source="Unknown" src="https://js.rbxcdn.com/225e32821c8236a09a750eb621ac01ffd902538af3eaf018d5138beb78bb09ec.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Feature.ShopDialog" data-bundle-source="Unknown" src="https://js.rbxcdn.com/316910d0bda0245bf88d73f4c79eaaef74f0f617e5e1f415eec61ec16743ac93.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Feature.ShopDialog" data-bundle-source="Unknown" src="https://js.rbxcdn.com/95fdafe5af749e388de603b9ee7f67bb092c3c790badc572db4e2bca0c32b49a.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Common.AlertsAndOptions" data-bundle-source="Unknown" src="https://js.rbxcdn.com/d6ef2649d39b6b03cd0b0897cf83572ba86cc1460a5ed87a0d1a70b154581c38.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Common.AlertsAndOptions" data-bundle-source="Unknown" src="https://js.rbxcdn.com/03a64d3850925b52ee73bd27b41658f4a35a2b33b4a499fcb2ce72dcbd98020f.js"></script>
+
+
+
+
+    <script type='text/javascript'>Roblox.config.externalResources = [];Roblox.config.paths['Pages.Catalog'] = 'https://js.rbxcdn.com/0d2759e7f03a464f0b8c0909a28405c5.js';Roblox.config.paths['Pages.CatalogShared'] = 'https://js.rbxcdn.com/1b451357891fcc5351b20d20504aa8ad.js';Roblox.config.paths['Widgets.AvatarImage'] = 'https://js.rbxcdn.com/7d49ac94271bd506077acc9d0130eebb.js';Roblox.config.paths['Widgets.DropdownMenu'] = 'https://js.rbxcdn.com/da553e6b77b3d79bec37441b5fb317e7.js';Roblox.config.paths['Widgets.HierarchicalDropdown'] = 'https://js.rbxcdn.com/4a0af9989732810851e9e12809aeb8ad.js';Roblox.config.paths['Widgets.ItemImage'] = 'https://js.rbxcdn.com/61a0490ba23afa17f9ecca2a079a6a57.js';Roblox.config.paths['Widgets.PlaceImage'] = 'https://js.rbxcdn.com/a6df74a754523e097cab747621643c98.js';</script>
+
+        <script>
+            $(function () {
+                Roblox.DeveloperConsoleWarning.showWarning();
+            });
+        </script>
+
+
+<script type="text/javascript">
+    $(function(){
+        function trackReturns() {
+            function dayDiff(d1, d2) {
+                return Math.floor((d1-d2)/86400000);
+            }
+            if (!localStorage) {
+                return false;
+            }
+
+            var cookieName = 'RBXReturn';
+            var cookieOptions = {expires:9001};
+            var cookieStr = localStorage.getItem(cookieName) || "";
+            var cookie = {};
+
+            try {
+                cookie = JSON.parse(cookieStr);
+            } catch (ex) {
+                // busted cookie string from old previous version of the code
+            }
+
+            try {
+                if (typeof cookie.ts === "undefined" || isNaN(new Date(cookie.ts))) {
+                    localStorage.setItem(cookieName, JSON.stringify({ ts: new Date().toDateString() }));
+                    return false;
+                }
+            } catch (ex) {
+                return false;
+            }
+
+            var daysSinceFirstVisit = dayDiff(new Date(), new Date(cookie.ts));
+            if (daysSinceFirstVisit == 1 && typeof cookie.odr === "undefined") {
+                RobloxEventManager.triggerEvent('rbx_evt_odr', {});
+                cookie.odr = 1;
+            }
+            if (daysSinceFirstVisit >= 1 && daysSinceFirstVisit <= 7 && typeof cookie.sdr === "undefined") {
+                RobloxEventManager.triggerEvent('rbx_evt_sdr', {});
+                cookie.sdr = 1;
+            }
+            try {
+                localStorage.setItem(cookieName, JSON.stringify(cookie));
+            } catch (ex) {
+                return false;
+            }
+        }
+
+        GoogleListener.init();
+
+
+
+        RobloxEventManager.initialize(true);
+        RobloxEventManager.triggerEvent('rbx_evt_pageview');
+        trackReturns();
+
+
+
+        RobloxEventManager._idleInterval = 450000;
+        RobloxEventManager.registerCookieStoreEvent('rbx_evt_initial_install_start');
+        RobloxEventManager.registerCookieStoreEvent('rbx_evt_ftp');
+        RobloxEventManager.registerCookieStoreEvent('rbx_evt_initial_install_success');
+        RobloxEventManager.registerCookieStoreEvent('rbx_evt_fmp');
+        RobloxEventManager.startMonitor();
+
+
+    });
+
+</script>
+
+
+
+
+
+<script type="text/javascript">
+    var Roblox = Roblox || {};
+    Roblox.UpsellAdModal = Roblox.UpsellAdModal || {};
+
+    Roblox.UpsellAdModal.Resources = {
+        title: "Remove Ads Like This",
+        body: "Builders Club members do not see external ads like these.",
+        accept: "Upgrade Now",
+        decline: "No, thanks"
+    };
+</script>
+
+
+    <script onerror='Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)' data-monitor='true' data-bundlename='page' type='text/javascript' src='https://js.rbxcdn.com/700b2a99c40bbe02b6862bc5205e5249.js'></script>
+
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="StyleGuide" data-bundle-source="Main" src="https://js.rbxcdn.com/4888ca8b071d138013918b69709855c0d45e5ccb359104c0dd0f28b52c825c87.js"></script>
+
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="Footer" data-bundle-source="Main" src="https://js.rbxcdn.com/310bda9a8ee2f36524a0c5e0e94c5f3801548431acdf617638feebf62eb1c5c2.js"></script>
+
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="Captcha" data-bundle-source="Main" src="https://js.rbxcdn.com/1a241d9144da8dbf8df6923786e07dbb12d496294c6e3619ee01a3f510445e52.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="CrossDeviceLoginDisplayCode" data-bundle-source="Main" src="https://js.rbxcdn.com/115f02aaa2d66876748e1b21aeb663b0ebf5fa91f0a5b384d4fe91fa534d1551.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Authentication.CrossDevice" data-bundle-source="Unknown" src="https://js.rbxcdn.com/91e642cbd8eebef3d4aca2bf908b74ea4c9b0d594c458cc4babe641e13dc6365.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Authentication.CrossDevice" data-bundle-source="Unknown" src="https://js.rbxcdn.com/527666b02e8185081bc9febf4b1bee9c50d17f4189832d228a6a8adbd1e2a8d1.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="AccountRecoveryModal" data-bundle-source="Main" src="https://js.rbxcdn.com/776980ab06da25eebcacad844208e2544e091c8c295d69906976ccaaaeeb5d30.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_CommonUI.Controls" data-bundle-source="Unknown" src="https://js.rbxcdn.com/b52462343b35840119496ea2a98848e83d26de6c9393c11a56da048ff41e821f.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_CommonUI.Controls" data-bundle-source="Unknown" src="https://js.rbxcdn.com/d65d38b7c8e854eb865388749efd0ccf6f86bfa8eb798975bd81ff5d5120204d.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Authentication.ResetPassword" data-bundle-source="Unknown" src="https://js.rbxcdn.com/26a1975fb393b97545f2f39bd581600637c7f0bcbd8f775ed15697f48ab4e883.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Authentication.ResetPassword" data-bundle-source="Unknown" src="https://js.rbxcdn.com/a7cae0d9e86a0dcf0e25a1c56e8e4b8d529279d7be48ffaa20c9b3442d74e850.js"></script>
+
+
+
+
+    <script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="ItemPurchase" data-bundle-source="Main" src="https://js.rbxcdn.com/bf6ae6dfa7d79f9ffe1a0c1b3a22c25707722264d9afdd2fae5cc3e7f51e5d70.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Purchasing.PurchaseDialog" data-bundle-source="Unknown" src="https://js.rbxcdn.com/03cc50ec88ac615084f51c4161f827779d65321a040d5d90cef121b84bebeb5d.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Purchasing.PurchaseDialog" data-bundle-source="Unknown" src="https://js.rbxcdn.com/9ac0c0bd0fbda0a0b718470ef85b5206c0997111f8735294c638812e8d3d615a.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="GameLaunch" data-bundle-source="Main" src="https://js.rbxcdn.com/fe80ffd33d4a0e0b42a6789a523e4729177d7fea52bab0cea3485f24393cdb52.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Feature.GameLaunchGuestMode" data-bundle-source="Unknown" src="https://js.rbxcdn.com/9d22c27c772f92a17ddc66ea4f6d338fe1ec8ef2115613add545477e8b63c152.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Feature.GameLaunchGuestMode" data-bundle-source="Unknown" src="https://js.rbxcdn.com/f41ec06eeae79fa94e6ae9f435b0a1c6743085e898884eddb4d4025ca3af8a44.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Common.VisitGame" data-bundle-source="Unknown" src="https://js.rbxcdn.com/988173e54eccd9a914bc72e11a4edfc9d4c3d2e6ce4eb7368160f7976b184e87.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Common.VisitGame" data-bundle-source="Unknown" src="https://js.rbxcdn.com/54f0f101be41e556d9994491f5cdc63a4e6f33c364590ebac87e1365e99c29ff.js"></script>
+
+
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="SystemFeedback" data-bundle-source="Main" src="https://js.rbxcdn.com/aac542106f7f77697cbc3b36ab3cf0619bf9b69a1af0983e59dfeb6c36652d3b.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="Login" data-bundle-source="Main" src="https://js.rbxcdn.com/4f82d3bd91a8b565c9661cb2925113166b9bc491b2cc65d0fd0a91b00cc703ca.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Common.Captcha" data-bundle-source="Unknown" src="https://js.rbxcdn.com/5a90f3cdfb4b8510c2be55b33c45cf15f20b21aceabfdf5176fa1f9586df2ef7.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Common.Captcha" data-bundle-source="Unknown" src="https://js.rbxcdn.com/7bfb33d6daca3bf33b8279926060961ad21f195366362409b8964e2807204f6c.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Authentication.Captcha" data-bundle-source="Unknown" src="https://js.rbxcdn.com/c01091b4aa6987d85ffc34d83f74e77dbf9227e6f523f52fb7e736fa3ed79527.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Authentication.Captcha" data-bundle-source="Unknown" src="https://js.rbxcdn.com/c90a75ce07429d762b224d1350d1c5de47da85b61c2e64bbc82b1eb8aeebf4a9.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Authentication.Login" data-bundle-source="Unknown" src="https://js.rbxcdn.com/afd54d97f010af64991a147b079fc954c2587ce5cbbb5c78c0a7f4e391c040bf.js"></script>
+<script type="text/javascript" onerror="Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)" data-monitor="true" data-bundlename="DynamicLocalizationResourceScript_Authentication.Login" data-bundle-source="Unknown" src="https://js.rbxcdn.com/79e3cc7541f656ec8eaa55ada34c6c497b826476fa4635b1b348005e4c731f94.js"></script>
+
+
+
+
+
+    <script onerror='Roblox.BundleDetector && Roblox.BundleDetector.reportBundleError(this)' data-monitor='true' data-bundlename='pageEnd' type='text/javascript' src='https://js.rbxcdn.com/13aadaf668a831bfd13ec1adc19c3800.js'></script>
+
+
+</body>
+</html>
